@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECOO Alternate Fuels India Pvt. Ltd.</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --eco-dark: #0a1a0f;
+    --eco-deep: #0f2318;
+    --eco-mid: #1a3a25;
+    --eco-green: #2d6a3f;
+    --eco-bright: #3d9b5c;
+    --eco-lime: #7ec850;
+    --eco-accent: #f5a623;
+    --eco-orange: #e8853c;
+    --eco-cream: #f5f0e8;
+    --eco-white: #fafaf7;
+    --eco-gray: #8a9e8f;
+    --eco-light: #c8deca;
+    --text-primary: #f0f5f1;
+    --text-muted: #8a9e8f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--eco-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem; height: 72px;
+    background: rgba(10,26,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(61,155,92,0.15);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--eco-accent), var(--eco-orange));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--eco-dark); letter-spacing: -1px;
+  }
+  .nav-brand { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--eco-cream); line-height: 1.1; }
+  .nav-brand small { display: block; font-size: 0.58rem; color: var(--eco-gray); font-weight: 400; letter-spacing: 0.1em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--eco-lime); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 0 5rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(45,106,63,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(61,155,92,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 80% 10%, rgba(245,166,35,0.06) 0%, transparent 50%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(61,155,92,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(61,155,92,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-deco {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-family: 'Rajdhani', sans-serif; font-size: 28vw; font-weight: 700;
+    color: transparent; -webkit-text-stroke: 1px rgba(61,155,92,0.06);
+    pointer-events: none; user-select: none; line-height: 1; letter-spacing: -0.05em; white-space: nowrap;
+  }
+  .hero-eyebrow {
+    position: relative; z-index: 1;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--eco-lime); text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--eco-lime); }
+  .hero-title {
+    position: relative; z-index: 1;
+    font-family: 'Rajdhani', sans-serif; font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 700; line-height: 0.92; letter-spacing: -0.02em; color: var(--eco-white); margin-bottom: 2rem;
+  }
+  .hero-title span { color: var(--eco-lime); }
+  .hero-subtitle {
+    position: relative; z-index: 1;
+    font-size: 1.2rem; font-weight: 300; color: var(--eco-light); max-width: 600px; margin-bottom: 3rem; font-style: italic;
+  }
+  .hero-stats { position: relative; z-index: 1; display: flex; gap: 3rem; margin-bottom: 3rem; }
+  .stat { border-left: 2px solid var(--eco-green); padding-left: 1.25rem; }
+  .stat-num { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--eco-lime); line-height: 1; }
+  .stat-label { font-size: 0.75rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; }
+  .hero-cta { position: relative; z-index: 1; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.9rem 2.5rem; background: var(--eco-lime); color: var(--eco-dark); border: none;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { background: var(--eco-accent); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.9rem 2.5rem; background: transparent; color: var(--eco-light);
+    border: 1px solid rgba(126,200,80,0.4);
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--eco-lime); color: var(--eco-lime); }
+  .hero-badges {
+    position: absolute; right: 5rem; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 1rem; z-index: 1;
+  }
+  .badge {
+    background: rgba(45,106,63,0.15); border: 1px solid rgba(61,155,92,0.25);
+    backdrop-filter: blur(8px); padding: 1rem 1.25rem; border-radius: 4px; max-width: 220px;
+  }
+  .badge-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .badge-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--eco-lime); letter-spacing: 0.05em; }
+  .badge-sub { font-size: 0.7rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; margin-top: 0.2rem; }
+
+  /* SECTION BASE */
+  section { padding: 6rem 5rem; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--eco-lime); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after { content: ''; flex: 1; max-width: 50px; height: 1px; background: var(--eco-lime); }
+  .section-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 700; line-height: 1.05; color: var(--eco-white); }
+  .section-title span { color: var(--eco-lime); }
+
+  /* ABOUT */
+  #about { background: var(--eco-deep); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 4rem; }
+  .about-text p { margin-bottom: 1.5rem; color: var(--eco-light); font-size: 1.1rem; font-weight: 300; }
+  .about-text strong { color: var(--eco-lime); font-weight: 600; }
+  .compliance-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .compliance-card {
+    background: rgba(45,106,63,0.1); border: 1px solid rgba(61,155,92,0.2);
+    border-left: 3px solid var(--eco-lime); padding: 1.25rem 1.5rem; border-radius: 0 4px 4px 0;
+  }
+  .cc-head { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--eco-lime); letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .cc-val { font-size: 0.95rem; color: var(--eco-light); }
+  .cc-num { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--eco-gray); margin-top: 0.25rem; }
+
+  /* SERVICES */
+  #services { background: var(--eco-dark); }
+  .services-intro { max-width: 700px; margin-bottom: 4rem; }
+  .services-intro p { color: var(--eco-light); font-size: 1.1rem; margin-top: 1.5rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(61,155,92,0.1); margin-bottom: 3rem; }
+  .service-card { background: var(--eco-dark); padding: 2.5rem 2rem; transition: background 0.3s; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--eco-lime), transparent); opacity: 0; transition: opacity 0.3s; }
+  .service-card:hover { background: var(--eco-deep); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card.featured { background: var(--eco-mid); border: 1px solid rgba(126,200,80,0.25); }
+  .service-card.featured::before { opacity: 1; }
+  .service-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--eco-gray); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .tag-current { background: var(--eco-lime); color: var(--eco-dark); padding: 0.15rem 0.5rem; font-size: 0.6rem; border-radius: 2px; }
+  .tag-future { background: rgba(245,166,35,0.2); color: var(--eco-accent); padding: 0.15rem 0.5rem; font-size: 0.6rem; border-radius: 2px; }
+  .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .service-name { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.75rem; }
+  .service-desc { font-size: 0.95rem; color: var(--eco-light); font-weight: 300; }
+  .service-capacity { margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--eco-lime); }
+  .waste-streams { margin-top: 2rem; padding: 2.5rem; background: var(--eco-deep); border: 1px solid rgba(61,155,92,0.15); }
+  .ws-title { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--eco-white); margin-bottom: 1.5rem; }
+  .ws-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; }
+  .ws-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--eco-light); padding: 0.4rem 0; }
+  .ws-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--eco-lime); flex-shrink: 0; }
+
+  /* CO-PROCESSING */
+  #partners { background: var(--eco-deep); }
+  .partners-intro { max-width: 600px; margin-bottom: 4rem; }
+  .partners-intro p { color: var(--eco-light); font-size: 1.1rem; margin-top: 1.5rem; }
+  .cement-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 3rem; }
+  .cement-card {
+    background: rgba(15,35,24,0.8); border: 1px solid rgba(61,155,92,0.2); padding: 2rem 1.5rem;
+    text-align: center; transition: all 0.3s;
+  }
+  .cement-card:hover { border-color: var(--eco-lime); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(126,200,80,0.1); }
+  .cement-logo-text {
+    width: 80px; height: 80px; margin: 0 auto 1rem; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.5px;
+  }
+  .dalmia-color { background: linear-gradient(135deg, #c41e3a, #8b0000); color: #fff; }
+  .jk-color { background: linear-gradient(135deg, #1a5276, #2e86ab); color: #fff; }
+  .wonder-color { background: linear-gradient(135deg, #e67e22, #d35400); color: #fff; }
+  .acc-color { background: linear-gradient(135deg, #2c3e50, #34495e); color: #fff; }
+  .cement-name { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.3rem; }
+  .cement-location { font-size: 0.75rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+  .cement-badge { display: inline-block; margin-top: 0.75rem; padding: 0.2rem 0.7rem; background: rgba(126,200,80,0.1); border: 1px solid rgba(126,200,80,0.3); color: var(--eco-lime); font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; }
+  .co-benefits { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 2rem; }
+  .co-benefit-title { color: var(--eco-lime); font-family: 'Rajdhani', sans-serif; font-weight: 600; margin-bottom: 0.5rem; }
+  .co-benefit-desc { font-size: 0.88rem; color: var(--eco-light); }
+
+  /* CLIENTS */
+  #clients { background: var(--eco-dark); }
+  .clients-intro { max-width: 650px; margin-bottom: 4rem; }
+  .clients-intro p { color: var(--eco-light); font-size: 1.1rem; margin-top: 1.5rem; }
+  .client-sectors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; }
+  .cs-head { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--eco-lime); padding-bottom: 0.75rem; border-bottom: 1px solid rgba(61,155,92,0.2); margin-bottom: 1rem; }
+  .client-item { padding: 0.6rem 0; border-bottom: 1px solid rgba(61,155,92,0.08); display: flex; align-items: flex-start; gap: 0.75rem; }
+  .client-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--eco-green); margin-top: 0.5rem; flex-shrink: 0; }
+  .client-name { font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--eco-white); }
+  .client-loc { font-size: 0.72rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; }
+  .client-waste { font-size: 0.78rem; color: var(--eco-light); font-style: italic; margin-top: 0.1rem; }
+  .clients-strip { margin-top: 2rem; padding: 2rem 0; border-top: 1px solid rgba(61,155,92,0.15); border-bottom: 1px solid rgba(61,155,92,0.15); overflow: hidden; }
+  .strip-label { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--eco-gray); text-transform: uppercase; margin-bottom: 1.5rem; }
+  .strip-track { display: flex; gap: 0; align-items: center; animation: marquee 35s linear infinite; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .strip-item { flex-shrink: 0; padding: 0.5rem 2rem; border-right: 1px solid rgba(61,155,92,0.15); font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--eco-gray); white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* LEADERSHIP */
+  #leadership { background: var(--eco-deep); }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .team-card { border: 1px solid rgba(61,155,92,0.15); padding: 2rem 1.5rem; position: relative; overflow: hidden; transition: all 0.3s; }
+  .team-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--eco-lime), var(--eco-accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .team-card:hover { border-color: rgba(126,200,80,0.4); }
+  .team-card:hover::after { transform: scaleX(1); }
+  .team-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--eco-green), var(--eco-mid)); border: 2px solid rgba(126,200,80,0.3); display: flex; align-items: center; justify-content: center; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--eco-lime); margin-bottom: 1.25rem; }
+  .team-name { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.2rem; }
+  .team-role { font-size: 0.75rem; color: var(--eco-lime); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .team-bio { font-size: 0.88rem; color: var(--eco-light); font-weight: 300; line-height: 1.6; }
+
+  /* FACILITY */
+  #facility { background: var(--eco-dark); }
+  .facility-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; margin-top: 4rem; }
+  .facility-specs { display: flex; flex-direction: column; gap: 1rem; }
+  .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border: 1px solid rgba(61,155,92,0.12); background: rgba(15,35,24,0.5); }
+  .spec-key { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--eco-gray); letter-spacing: 0.05em; text-transform: uppercase; }
+  .spec-val { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--eco-lime); text-align: right; }
+  .process-flow { background: var(--eco-deep); border: 1px solid rgba(61,155,92,0.2); padding: 2.5rem; }
+  .pf-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; color: var(--eco-light); margin-bottom: 2rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .flow-step { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.25rem 0; border-bottom: 1px solid rgba(61,155,92,0.1); }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(45,106,63,0.3); border: 1px solid var(--eco-green); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--eco-lime); flex-shrink: 0; }
+  .flow-name { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--eco-white); }
+  .flow-desc { font-size: 0.82rem; color: var(--eco-gray); margin-top: 0.2rem; }
+
+  /* CONTACT */
+  #contact { background: var(--eco-deep); border-top: 1px solid rgba(61,155,92,0.15); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; margin-top: 4rem; }
+  .contact-block { margin-bottom: 2.5rem; }
+  .cb-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--eco-lime); margin-bottom: 0.5rem; }
+  .cb-val { font-size: 1.05rem; color: var(--eco-light); line-height: 1.6; }
+  .cb-val a { color: var(--eco-light); text-decoration: none; }
+  .cb-val a:hover { color: var(--eco-lime); }
+  .contact-reg { background: rgba(45,106,63,0.08); border: 1px solid rgba(61,155,92,0.15); padding: 2rem; }
+  .reg-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; color: var(--eco-white); margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .reg-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(61,155,92,0.08); font-size: 0.85rem; }
+  .reg-row:last-child { border-bottom: none; }
+  .rr-key { color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+  .rr-val { color: var(--eco-light); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+
+  /* FOOTER */
+  footer {
+    background: #050d08; padding: 3rem 5rem;
+    border-top: 1px solid rgba(61,155,92,0.1);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--eco-white); }
+  .footer-logo span { color: var(--eco-lime); }
+  .footer-copy { font-size: 0.78rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.75rem; color: var(--eco-gray); text-decoration: none; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--eco-lime); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--eco-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--eco-green); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">eCO</div>
+    <div class="nav-brand">ECOO Alternate Fuels<small>India Private Limited</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#partners">Co-Processing</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#leadership">Team</a></li>
+    <li><a href="#facility">Facility</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-deco">ECOO</div>
+
+  <div class="hero-eyebrow">Incorporated Dec 2023 · MPCB Consent Valid to Sept 2029</div>
+  <h1 class="hero-title">Transforming<br>Hazardous <span>Waste</span><br>Into Fuel</h1>
+  <p class="hero-subtitle">Maharashtra's trusted pre-processor of industrial hazardous waste — converting complex waste streams into certified alternate fuels for cement co-processing.</p>
+
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">48,000</div><div class="stat-label">MT/Year Capacity</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Industry Clients</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Cement Partners</div></div>
+    <div class="stat"><div class="stat-num">₹4.996Cr</div><div class="stat-label">Capital Investment</div></div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#services" class="btn-primary">Our Services</a>
+    <a href="#contact" class="btn-outline">Get In Touch</a>
+  </div>
+
+  <div class="hero-badges">
+    <div class="badge">
+      <div class="badge-icon">🏛️</div>
+      <div class="badge-title">MPCB Authorized</div>
+      <div class="badge-sub">Consent No. MPCB-CONSENT-<br>0000216187 · Date 24/11/2024</div>
+    </div>
+    <div class="badge">
+      <div class="badge-icon">⚖️</div>
+      <div class="badge-title">HWM Rules 2016</div>
+      <div class="badge-sub">MoEFCC / CPCB Compliant</div>
+    </div>
+    <div class="badge">
+      <div class="badge-icon">🏭</div>
+      <div class="badge-title">MIDC Kurkumbh</div>
+      <div class="badge-sub">Plot A 93/5, Daund, Pune</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">About Us</div>
+  <h2 class="section-title">Rooted in Daund,<br><span>Serving Industry</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><strong>ECOO Alternate Fuels India Pvt. Ltd.</strong> was incorporated on 30th December 2023 with a clear mission: to provide environmentally sound pre-processing of hazardous industrial waste and convert it into certified alternate fuels for cement kilns across India.</p>
+      <p>Operating from <strong>Plot A 93/5, MIDC Kurkumbh, Daund, Pune</strong> — our facility is strategically located in one of Maharashtra's premier industrial zones, enabling efficient waste collection and processing from industries across Pune, Nasik, Thane, Raigad and beyond.</p>
+      <p>We work in strict compliance with the <strong>Hazardous & Other Wastes (Management & Transboundary Movement) Rules, 2016</strong> and operate under consent granted by the Maharashtra Pollution Control Board, valid through September 2029.</p>
+      <p>Our founding team brings together expertise from <strong>IT, chemical engineering, banking, and aviation</strong> — united by a shared commitment to transforming hazardous waste management in the region through innovation and responsibility.</p>
+    </div>
+    <div class="compliance-cards">
+      <div class="compliance-card">
+        <div class="cc-head">MPCB Consent to Operate</div>
+        <div class="cc-val">Granted — Valid until 30/09/2029</div>
+        <div class="cc-num">No. MPCB-CONSENT-0000216187/CO/2411001408 · Date: 24/11/2024</div>
+      </div>
+      <div class="compliance-card">
+        <div class="cc-head">Company Registration (CIN)</div>
+        <div class="cc-val">U38210PN2023PTC226912</div>
+        <div class="cc-num">Ministry of Corporate Affairs — December 30, 2023</div>
+      </div>
+      <div class="compliance-card">
+        <div class="cc-head">PAN & TAN</div>
+        <div class="cc-val">PAN: AAHCE9480A · TAN: PNEE09182F</div>
+        <div class="cc-num">Issued by Income Tax Department of India</div>
+      </div>
+      <div class="compliance-card">
+        <div class="cc-head">Authorized Production</div>
+        <div class="cc-val">36,000 MT/A (Organic) + 12,000 MT/A (Inorganic)</div>
+        <div class="cc-num">Zero Liquid Discharge · Environmentally Sound Technology (EST)</div>
+      </div>
+      <div class="compliance-card">
+        <div class="cc-head">CPCB Guidelines</div>
+        <div class="cc-val">Pre-processing & Co-processing in Cement Plants</div>
+        <div class="cc-num">HWM Rules 2016 · CPCB July 2017 Guidelines Compliant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <div class="services-intro">
+    <h2 class="section-title">Current Focus &<br><span>Future Vision</span></h2>
+    <p>Today we excel in hazardous waste pre-processing and alternate fuel production for cement co-processing. Our roadmap extends into municipal solid waste, RDF, and industrial wastewater treatment.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card featured">
+      <div class="service-tag"><span class="tag-current">Current — Core</span></div>
+      <div class="service-icon">⚗️</div>
+      <div class="service-name">Hazardous Waste Pre-Processing</div>
+      <div class="service-desc">Collection, segregation, characterization and pre-processing of industrial hazardous waste from pharma, chemicals, petrochemicals, metals and coatings industries across Maharashtra.</div>
+      <div class="service-capacity">📦 Organic: 36,000 MT/A · Inorganic: 12,000 MT/A</div>
+    </div>
+    <div class="service-card featured">
+      <div class="service-tag"><span class="tag-current">Current — Core</span></div>
+      <div class="service-icon">🔥</div>
+      <div class="service-name">Alternate Fuel Production</div>
+      <div class="service-desc">Blending and homogenizing pre-processed waste into certified alternate fuels meeting calorific specifications for cement kiln co-processing, replacing fossil fuels and reducing CO₂ emissions.</div>
+      <div class="service-capacity">🏭 Supplied to Dalmia, JK, Wonder & ACC Cement Plants</div>
+    </div>
+    <div class="service-card featured">
+      <div class="service-tag"><span class="tag-current">Current</span></div>
+      <div class="service-icon">🛢️</div>
+      <div class="service-name">Container Decontamination</div>
+      <div class="service-desc">Safe decontamination and disposal of empty barrels, containers and liners contaminated with hazardous chemicals and wastes as per Category 33.1 of HWM Rules 2016.</div>
+      <div class="service-capacity">📦 Authorized: 120 MT/A · MPCB Authorized Recycler</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag"><span class="tag-future">Future Project</span></div>
+      <div class="service-icon">🏙️</div>
+      <div class="service-name">MSW Processing</div>
+      <div class="service-desc">Municipal Solid Waste processing facility planned to address the growing urban waste challenge — combining sorting, segregation and recovery technologies at scale.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag"><span class="tag-future">Future Project</span></div>
+      <div class="service-icon">🌱</div>
+      <div class="service-name">RDF Production</div>
+      <div class="service-desc">Refuse Derived Fuel production from combustible fractions of municipal and industrial waste — a high-calorific substitute for coal in cement and power plants across India.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag"><span class="tag-future">Future Project</span></div>
+      <div class="service-icon">💧</div>
+      <div class="service-name">Industrial Wastewater Treatment</div>
+      <div class="service-desc">Planned Industrial Effluent Treatment Plants (IWWTP) offering turnkey wastewater treatment solutions for industrial clients requiring environmental compliance and ZLD.</div>
+    </div>
+  </div>
+
+  <div class="waste-streams">
+    <div class="ws-title">Hazardous Waste Streams We Handle</div>
+    <div class="ws-grid">
+      <div class="ws-item"><span class="ws-dot"></span>Spent Solvents</div>
+      <div class="ws-item"><span class="ws-dot"></span>Organic Residue</div>
+      <div class="ws-item"><span class="ws-dot"></span>Chemical Sludge</div>
+      <div class="ws-item"><span class="ws-dot"></span>ETP Sludge</div>
+      <div class="ws-item"><span class="ws-dot"></span>Paint Sludge</div>
+      <div class="ws-item"><span class="ws-dot"></span>Distillation Residue</div>
+      <div class="ws-item"><span class="ws-dot"></span>Oily Sludge / Emulsion</div>
+      <div class="ws-item"><span class="ws-dot"></span>Zinc Cake / Zinc Ash</div>
+      <div class="ws-item"><span class="ws-dot"></span>Phosphate Sludge</div>
+      <div class="ws-item"><span class="ws-dot"></span>Concentration Residue</div>
+      <div class="ws-item"><span class="ws-dot"></span>Off-Spec Products</div>
+      <div class="ws-item"><span class="ws-dot"></span>Spent Carbon</div>
+      <div class="ws-item"><span class="ws-dot"></span>Oil Soaked Cotton Waste</div>
+      <div class="ws-item"><span class="ws-dot"></span>Grinding Sludge</div>
+      <div class="ws-item"><span class="ws-dot"></span>Filter Residues</div>
+      <div class="ws-item"><span class="ws-dot"></span>Soap Sludge / Mill Sludge</div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="section-label">Cement Co-Processing</div>
+  <div class="partners-intro">
+    <h2 class="section-title">Our Cement Plant<br><span>Affiliations</span></h2>
+    <p>We supply certified alternate fuels to some of India's leading cement manufacturers, enabling fossil fuel substitution while diverting hazardous waste from landfills — a win for industry and environment.</p>
+  </div>
+
+  <div class="cement-grid">
+    <div class="cement-card">
+      <div class="cement-logo-text dalmia-color">DC</div>
+      <div class="cement-name">Dalmia Cement Bharat Ltd</div>
+      <div class="cement-location">Odisha · Belgaum, Karnataka</div>
+      <div class="cement-badge">Primary Partner</div>
+    </div>
+    <div class="cement-card">
+      <div class="cement-logo-text jk-color">JK</div>
+      <div class="cement-name">JK Cement Ltd</div>
+      <div class="cement-location">Muddapur, Karnataka</div>
+      <div class="cement-badge">Regular Supply</div>
+    </div>
+    <div class="cement-card">
+      <div class="cement-logo-text wonder-color">WC</div>
+      <div class="cement-name">Wonder Cement Ltd</div>
+      <div class="cement-location">Rajasthan</div>
+      <div class="cement-badge">Active Partner</div>
+    </div>
+    <div class="cement-card">
+      <div class="cement-logo-text acc-color">ACC</div>
+      <div class="cement-name">ACC Ltd</div>
+      <div class="cement-location">Wadi Cement Works, Kalaburagi</div>
+      <div class="cement-badge">Active Partner</div>
+    </div>
+  </div>
+
+  <div class="waste-streams">
+    <div class="ws-title">Why Co-Processing in Cement Kilns?</div>
+    <div class="co-benefits">
+      <div>
+        <div class="co-benefit-title">♻️ Zero Residue</div>
+        <div class="co-benefit-desc">High-temperature kiln incineration at 1400°C+ ensures complete destruction of hazardous organics with zero residue — unlike dedicated incinerators that produce ash requiring further disposal.</div>
+      </div>
+      <div>
+        <div class="co-benefit-title">🌍 Fossil Fuel Substitution</div>
+        <div class="co-benefit-desc">Every tonne of alternate fuel used displaces coal or petcoke, reducing CO₂ emissions, conserving natural resources, and helping cement plants achieve their sustainability goals.</div>
+      </div>
+      <div>
+        <div class="co-benefit-title">📋 Full Regulatory Compliance</div>
+        <div class="co-benefit-desc">Co-processing is authorized under CPCB guidelines (July 2017) and HWM Rules 2016 — providing a safe, legal, and documented disposal pathway for industries.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="section-label">Client Portfolio</div>
+  <div class="clients-intro">
+    <h2 class="section-title">Trusted by <span>Renowned</span><br>Industries</h2>
+    <p>We partner with leading companies across pharmaceuticals, chemicals, metals, paints, food processing and steel manufacturing — managing their hazardous waste streams responsibly and efficiently.</p>
+  </div>
+
+  <div class="client-sectors">
+    <div class="client-sector">
+      <div class="cs-head">Pharma & Chemicals</div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Cipla Ltd</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Chemical sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Aarti Drugs Ltd</div><div class="client-loc">Boisar, Thane</div><div class="client-waste">Organic residue, chemical sludge, concentration residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Prasol Chemicals Ltd</div><div class="client-loc">Mahad / Khopoli</div><div class="client-waste">Organic residue, zinc cake, ETP sludge, wettable sulphur</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Mesha Pharma Pvt Ltd</div><div class="client-loc">Tarapur, Palghar</div><div class="client-waste">Chemical sludge from wastewater treatment</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Eternis Fine Chemicals</div><div class="client-loc">Sinner, Nasik / Kurkumbh</div><div class="client-waste">Distillation residue, ETP sludge, mixed waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Halides Chemicals Pvt Ltd</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Organic residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Omniactive Health Technologies</div><div class="client-loc">Hinjewadi, Pune</div><div class="client-waste">Chemical sludge, non-hazardous waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Sarex Overseas</div><div class="client-loc">Tarapur, Boisar</div><div class="client-waste">Spent solvents, spent carbon, chemical sludge</div></div></div>
+    </div>
+
+    <div class="client-sector">
+      <div class="cs-head">Steel & Heavy Manufacturing</div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Tata Steel Limited</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Soap sludge, grinding sludge, ETP sludge, phosphate sludge, zinc ash, glass wool, mill sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">AMNS Khopoli Ltd</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">TSL Aurangabad</div><div class="client-loc">Aurangabad</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Shirke Enterprises</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Spent solvent</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Star Mech-Controls</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Spent solvent</div></div></div>
+    </div>
+
+    <div class="client-sector">
+      <div class="cs-head">Engineering & Speciality</div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Forbes Marshall Arca Pvt Ltd</div><div class="client-loc">Pimpri, Pune</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Krohne Marshall Pvt Ltd</div><div class="client-loc">Pimpri, Pune</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Klaus Union Engg. India</div><div class="client-loc">Hadapsar, Pune</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">3M India Ltd</div><div class="client-loc">Ranjangaon, Pune</div><div class="client-waste">Waste & chemical residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Vibrantz Colorant Technologies</div><div class="client-loc">Panvel, Raigad</div><div class="client-waste">Paint buckets, ETP sludge, ETP water</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Frigorifico Allana Pvt Ltd</div><div class="client-loc">Khalapur, Raigad</div><div class="client-waste">Chemical sludge from wastewater treatment</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Allana Consumer Products</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Biodegradable food waste, cake gel</div></div></div>
+    </div>
+  </div>
+
+  <div class="clients-strip">
+    <div class="strip-label">Our Esteemed Clients</div>
+    <div class="strip-track">
+      <div class="strip-item">Cipla Ltd</div><div class="strip-item">Tata Steel</div><div class="strip-item">3M India</div><div class="strip-item">Aarti Drugs</div><div class="strip-item">Forbes Marshall</div><div class="strip-item">Prasol Chemicals</div><div class="strip-item">Vibrantz Colorant</div><div class="strip-item">Sarex Overseas</div><div class="strip-item">Omniactive Health</div><div class="strip-item">Krohne Marshall</div><div class="strip-item">Klaus Union Engg</div><div class="strip-item">Frigorifico Allana</div><div class="strip-item">Eternis Fine Chemicals</div><div class="strip-item">Halides Chemicals</div><div class="strip-item">AMNS Khopoli</div><div class="strip-item">Mesha Pharma</div><div class="strip-item">Allana Consumer Products</div>
+      <div class="strip-item">Cipla Ltd</div><div class="strip-item">Tata Steel</div><div class="strip-item">3M India</div><div class="strip-item">Aarti Drugs</div><div class="strip-item">Forbes Marshall</div><div class="strip-item">Prasol Chemicals</div><div class="strip-item">Vibrantz Colorant</div><div class="strip-item">Sarex Overseas</div><div class="strip-item">Omniactive Health</div><div class="strip-item">Krohne Marshall</div><div class="strip-item">Klaus Union Engg</div><div class="strip-item">Frigorifico Allana</div><div class="strip-item">Eternis Fine Chemicals</div><div class="strip-item">Halides Chemicals</div><div class="strip-item">AMNS Khopoli</div><div class="strip-item">Mesha Pharma</div><div class="strip-item">Allana Consumer Products</div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="section-label">Our People</div>
+  <h2 class="section-title">The <span>Leadership</span> Team</h2>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">AP</div>
+      <div class="team-name">Ajit Parakh</div>
+      <div class="team-role">Director · MCA</div>
+      <div class="team-bio">IT professional with 20+ years of experience including 13+ years in the USA and UAE. Returned to his native Daund to build a sustainable waste management enterprise — combining global expertise with deep local commitment.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">KD</div>
+      <div class="team-name">Kedar D. Devale</div>
+      <div class="team-role">Director · Chemical Engineer, MBA</div>
+      <div class="team-bio">Entrepreneur in waste management since 2013. Brings deep technical knowledge in chemical engineering and strategic management — the technical backbone of ECOO's pre-processing operations.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">IM</div>
+      <div class="team-name">Imtiyaz Mulani</div>
+      <div class="team-role">Director · MBA</div>
+      <div class="team-bio">10+ years in banking before transitioning to hazardous waste management in 2010. Specialist in oil waste recycling with strong financial acumen and industry network spanning Maharashtra.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">SN</div>
+      <div class="team-name">Sumeer Nanavati</div>
+      <div class="team-role">Director · AME</div>
+      <div class="team-bio">Aircraft Maintenance Engineer with 8+ years at Baroda Airport. Transitioned to waste recycling operations in 2013. Brings precision engineering mindset and strong operational discipline to ECOO.</div>
+    </div>
+  </div>
+</section>
+
+<section id="facility">
+  <div class="section-label">Our Facility</div>
+  <h2 class="section-title">State-of-the-Art<br><span>Processing Plant</span></h2>
+  <div class="facility-grid">
+    <div>
+      <p style="color:var(--eco-light);font-size:1.05rem;margin-bottom:2rem;">Located in MIDC Kurkumbh — one of Maharashtra's most industrial-friendly zones — our facility features covered sheds with impervious flooring, advanced screening and sorting equipment, fume extraction systems, fire protection, and a 3 CMD Zero Liquid Discharge effluent treatment plant.</p>
+      <div class="facility-specs">
+        <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Plot A 93/5, MIDC Kurkumbh, Daund, Pune</span></div>
+        <div class="spec-row"><span class="spec-key">Organic AF Capacity</span><span class="spec-val">36,000 MT / Year</span></div>
+        <div class="spec-row"><span class="spec-key">Inorganic AF Capacity</span><span class="spec-val">12,000 MT / Year</span></div>
+        <div class="spec-row"><span class="spec-key">Total Capacity</span><span class="spec-val">48,000 MT / Year</span></div>
+        <div class="spec-row"><span class="spec-key">Capital Investment</span><span class="spec-val">₹ 4.996 Crores</span></div>
+        <div class="spec-row"><span class="spec-key">ETP Capacity</span><span class="spec-val">3.00 CMD · Zero Liquid Discharge</span></div>
+        <div class="spec-row"><span class="spec-key">MPCB Consent Valid</span><span class="spec-val">30/09/2029</span></div>
+        <div class="spec-row"><span class="spec-key">Category</span><span class="spec-val">RED / SSI (R32)</span></div>
+      </div>
+    </div>
+    <div class="process-flow">
+      <div class="pf-title">Our Processing Workflow</div>
+      <div>
+        <div class="flow-step"><div class="flow-num">01</div><div class="flow-content"><div class="flow-name">Waste Collection & Transport</div><div class="flow-desc">Authorized hazardous waste transporters collect from client industries. MOU-backed, MPCB compliant transportation chain.</div></div></div>
+        <div class="flow-step"><div class="flow-num">02</div><div class="flow-content"><div class="flow-name">Characterization & Segregation</div><div class="flow-desc">Metal detection, EM separation; disc/rotary/trommel screening for waste stream identification and classification.</div></div></div>
+        <div class="flow-step"><div class="flow-num">03</div><div class="flow-content"><div class="flow-name">Pre-Processing & Dehydration</div><div class="flow-desc">Blending, size reduction, dehydration and moisture control to optimize calorific value and handling characteristics.</div></div></div>
+        <div class="flow-step"><div class="flow-num">04</div><div class="flow-content"><div class="flow-name">Alternate Fuel Formulation</div><div class="flow-desc">Precise blending to meet cement plant specifications — calorific value, chlorine content, moisture, and particle size.</div></div></div>
+        <div class="flow-step"><div class="flow-num">05</div><div class="flow-content"><div class="flow-name">Dispatch to Cement Co-Processors</div><div class="flow-desc">Certified alternate fuel dispatched to authorized cement plants — Dalmia, JK Cement, Wonder Cement and ACC.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Connect with <span>ECOO</span></h2>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-block">
+        <div class="cb-label">Registered Office</div>
+        <div class="cb-val">FL-401 A-Wing, Maple Garden<br>SN-44/1/1 & 47/1/2, Kondhwa BK<br>Pune – 411048, Maharashtra</div>
+      </div>
+      <div class="contact-block">
+        <div class="cb-label">Processing Facility</div>
+        <div class="cb-val">Plot No. A 93/5, MIDC Kurkumbh<br>Daund, District Pune, Maharashtra</div>
+      </div>
+      <div class="contact-block">
+        <div class="cb-label">Phone</div>
+        <div class="cb-val"><a href="tel:+917448115599">+91 7448 115 599</a></div>
+      </div>
+      <div class="contact-block">
+        <div class="cb-label">Email</div>
+        <div class="cb-val"><a href="mailto:ecooalternatefuelsind@gmail.com">ecooalternatefuelsind@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="contact-reg">
+      <div class="reg-title">Company Registration Details</div>
+      <div class="reg-row"><span class="rr-key">Company Name</span><span class="rr-val">ECOO Alternate Fuels India Pvt. Ltd.</span></div>
+      <div class="reg-row"><span class="rr-key">CIN</span><span class="rr-val">U38210PN2023PTC226912</span></div>
+      <div class="reg-row"><span class="rr-key">PAN</span><span class="rr-val">AAHCE9480A</span></div>
+      <div class="reg-row"><span class="rr-key">TAN</span><span class="rr-val">PNEE09182F</span></div>
+      <div class="reg-row"><span class="rr-key">Date of Incorporation</span><span class="rr-val">30 December 2023</span></div>
+      <div class="reg-row"><span class="rr-key">MPCB Consent No.</span><span class="rr-val">MPCB-CONSENT-0000216187</span></div>
+      <div class="reg-row"><span class="rr-key">Consent Date</span><span class="rr-val">24 November 2024</span></div>
+      <div class="reg-row"><span class="rr-key">Consent Valid Till</span><span class="rr-val">30 September 2029</span></div>
+      <div class="reg-row"><span class="rr-key">Category</span><span class="rr-val">RED / SSI (R32)</span></div>
+      <div class="reg-row"><span class="rr-key">Regulatory Framework</span><span class="rr-val">HWM Rules 2016 · CPCB Authorized</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">eCOO <span>Alternate Fuels India</span></div>
+    <div style="font-size:0.72rem;color:var(--eco-gray);margin-top:0.3rem;font-family:'JetBrains Mono',monospace;">CIN: U38210PN2023PTC226912 · MPCB Authorized</div>
+  </div>
+  <div class="footer-copy">© 2025 ECOO Alternate Fuels India Pvt. Ltd. · All Rights Reserved</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#partners">Partners</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--eco-lime)' : '';
+    });
+  });
+</script>
+</body>
+</html>
