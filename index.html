@@ -764,4 +764,10 @@
       if (t < 1) requestAnimationFrame(step);
     })(start);
   }
-  const statObserver = new IntersectionObserver((entries)
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCount(e.target); statObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+</script>
