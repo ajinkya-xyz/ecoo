@@ -7,501 +7,275 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --eco-dark: #0d2415;
-    --eco-deep: #122e1d;
-    --eco-mid: #1e4429;
-    --eco-green: #317848;
-    --eco-bright: #42a863;
-    --eco-lime: #7ec850;
-    --eco-accent: #f2a025;
-    --eco-orange: #e07830;
-    --eco-cream: #f5f0e8;
-    --eco-white: #fafaf7;
-    --eco-gray: #94b09b;
-    --eco-light: #cce8d2;
-    --text-primary: #edf6ef;
-    --text-muted: #94b09b;
-    --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --primary:    #1a6fa8;
+    --primary-dk: #124e7a;
+    --primary-lt: #e8f4fd;
+    --accent:     #e07830;
+    --teal:       #0d8a78;
+    --teal-lt:    #e6f7f5;
+    --bg:         #ffffff;
+    --bg-soft:    #f7fafd;
+    --bg-card:    #eef5fb;
+    --border:     rgba(26,111,168,0.14);
+    --border-md:  rgba(26,111,168,0.28);
+    --text:       #0f1e2e;
+    --text-body:  #2c4a62;
+    --text-muted: #6b8fa8;
+    --ease:       cubic-bezier(0.4,0,0.2,1);
+    --ease-out:   cubic-bezier(0,0,0.2,1);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    background: var(--eco-dark);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.75;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Plus Jakarta Sans',system-ui,sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; line-height:1.75; font-weight:400; -webkit-font-smoothing:antialiased; }
 
   /* SCROLL PROGRESS */
-  #scroll-progress {
-    position: fixed; top: 0; left: 0; height: 2px; z-index: 200;
-    background: linear-gradient(90deg, var(--eco-lime), var(--eco-accent));
-    width: 0%; transition: width 0.1s linear; pointer-events: none;
-  }
+  #scroll-progress { position:fixed; top:0; left:0; height:3px; z-index:200; background:linear-gradient(90deg,var(--primary),var(--teal)); width:0%; transition:width 0.1s linear; pointer-events:none; }
 
   /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 4rem; height: 72px;
-    background: rgba(10,26,15,0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(61,155,92,0.12);
-    transition: box-shadow 0.3s var(--ease), border-color 0.3s;
-  }
-  nav.scrolled {
-    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-    border-bottom-color: rgba(126,200,80,0.2);
-  }
-  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-  .nav-logo-icon {
-    width: 42px; height: 42px;
-    background: linear-gradient(135deg, var(--eco-accent), var(--eco-orange));
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
-    color: var(--eco-dark); letter-spacing: -1px;
-    transition: transform 0.3s var(--ease), box-shadow 0.3s;
-  }
-  .nav-logo:hover .nav-logo-icon {
-    transform: rotate(-5deg) scale(1.05);
-    box-shadow: 0 4px 20px rgba(245,166,35,0.4);
-  }
-  .nav-brand { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--eco-cream); line-height: 1.1; }
-  .nav-brand small { display: block; font-size: 0.58rem; color: var(--eco-gray); font-weight: 400; letter-spacing: 0.1em; }
-  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; font-family: 'Rajdhani', sans-serif; font-weight: 500;
-    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--text-muted); transition: color 0.25s var(--ease);
-    position: relative; padding-bottom: 3px;
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
-    background: var(--eco-lime); transition: width 0.3s var(--ease);
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--eco-lime); }
-  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-  .nav-cta {
-    padding: 0.48rem 1.4rem;
-    background: transparent; border: 1px solid rgba(126,200,80,0.45);
-    color: var(--eco-lime); font-family: 'Rajdhani', sans-serif;
-    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none; border-radius: 3px;
-    transition: all 0.25s var(--ease);
-  }
-  .nav-cta:hover { background: var(--eco-lime); color: var(--eco-dark); box-shadow: 0 0 20px rgba(126,200,80,0.3); }
-  .hamburger {
-    display: none; flex-direction: column; gap: 5px; cursor: pointer;
-    padding: 4px; background: none; border: none;
-  }
-  .hamburger span { display: block; width: 22px; height: 2px; background: var(--eco-light); transition: all 0.3s var(--ease); border-radius: 2px; }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-nav {
-    display: none; position: fixed; top: 72px; left: 0; right: 0; z-index: 99;
-    background: rgba(10,26,15,0.98); backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(61,155,92,0.15);
-    padding: 1.5rem 2rem; flex-direction: column; gap: 0;
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    padding: 1rem 0; border-bottom: 1px solid rgba(61,155,92,0.1);
-    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1.1rem;
-    letter-spacing: 0.06em; text-transform: uppercase; color: var(--eco-light);
-    text-decoration: none; transition: color 0.2s;
-  }
-  .mobile-nav a:hover { color: var(--eco-lime); }
-  .mobile-nav .mobile-cta {
-    margin-top: 1.25rem; padding: 0.85rem; text-align: center;
-    background: var(--eco-lime); color: var(--eco-dark); border-radius: 3px;
-    font-weight: 700; font-size: 1rem; border-bottom: none;
-  }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 4rem; height:72px; background:rgba(255,255,255,0.97); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:box-shadow 0.3s var(--ease); }
+  nav.scrolled { box-shadow:0 2px 24px rgba(26,111,168,0.10); border-bottom-color:var(--border-md); }
+  .nav-logo { display:flex; align-items:center; gap:0.9rem; text-decoration:none; }
+  .nav-logo-icon { width:56px; height:56px; border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#fff; border:2px solid var(--border-md); box-shadow:0 2px 12px rgba(26,111,168,0.12); transition:transform 0.3s var(--ease),box-shadow 0.3s; }
+  .nav-logo-icon img { width:100%; height:100%; object-fit:contain; padding:5px; }
+  .nav-logo:hover .nav-logo-icon { transform:scale(1.06); box-shadow:0 4px 20px rgba(26,111,168,0.22); }
+  .nav-brand { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1.08rem; color:var(--text); line-height:1.1; }
+  .nav-brand small { display:block; font-size:0.57rem; color:var(--text-muted); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; }
+  .nav-right { display:flex; align-items:center; gap:2.5rem; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { text-decoration:none; font-family:'Rajdhani',sans-serif; font-weight:600; font-size:0.85rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--text-muted); transition:color 0.25s; position:relative; padding-bottom:3px; }
+  .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--primary); transition:width 0.3s var(--ease); border-radius:2px; }
+  .nav-links a:hover, .nav-links a.active { color:var(--primary); }
+  .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+  .nav-cta { padding:0.5rem 1.4rem; background:var(--primary); border:none; color:#fff; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; border-radius:6px; transition:all 0.25s var(--ease); }
+  .nav-cta:hover { background:var(--primary-dk); box-shadow:0 4px 16px rgba(26,111,168,0.3); transform:translateY(-1px); }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+  .hamburger span { display:block; width:22px; height:2px; background:var(--text); transition:all 0.3s; border-radius:2px; }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .mobile-nav { display:none; position:fixed; top:72px; left:0; right:0; z-index:99; background:rgba(255,255,255,0.99); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:1.5rem 2rem; flex-direction:column; gap:0; }
+  .mobile-nav.open { display:flex; }
+  .mobile-nav a { padding:1rem 0; border-bottom:1px solid var(--border); font-family:'Rajdhani',sans-serif; font-weight:600; font-size:1.1rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-body); text-decoration:none; transition:color 0.2s; }
+  .mobile-nav a:hover { color:var(--primary); }
+  .mobile-nav .mobile-cta { margin-top:1.25rem; padding:0.85rem; text-align:center; background:var(--primary); color:#fff; border-radius:6px; font-weight:700; font-size:1rem; border-bottom:none; }
 
-  /* SCROLL ANIMATIONS */
-  .fade-up {
-    opacity: 0; transform: translateY(28px);
-    transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-  .fade-up-delay-1 { transition-delay: 0.1s; }
-  .fade-up-delay-2 { transition-delay: 0.2s; }
-  .fade-up-delay-3 { transition-delay: 0.3s; }
+  /* ANIMATIONS */
+  .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.65s var(--ease-out),transform 0.65s var(--ease-out); }
+  .fade-up.visible { opacity:1; transform:translateY(0); }
+  .fade-up-delay-1 { transition-delay:0.1s; }
+  .fade-up-delay-2 { transition-delay:0.2s; }
+  .fade-up-delay-3 { transition-delay:0.3s; }
 
   /* HERO */
-  #hero {
-    min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: flex-end; padding: 0 5rem 6rem;
-    position: relative; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(45,106,63,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(61,155,92,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 40% 30% at 80% 10%, rgba(245,166,35,0.06) 0%, transparent 50%);
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(61,155,92,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(61,155,92,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridShift 40s linear infinite;
-  }
-  @keyframes gridShift { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
-  .hero-deco {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    font-family: 'Rajdhani', sans-serif; font-size: 28vw; font-weight: 700;
-    color: transparent; -webkit-text-stroke: 1px rgba(61,155,92,0.06);
-    pointer-events: none; user-select: none; line-height: 1; letter-spacing: -0.05em; white-space: nowrap;
-  }
-  .hero-eyebrow {
-    position: relative; z-index: 1;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em;
-    color: var(--eco-lime); text-transform: uppercase;
-    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 0.3s forwards;
-  }
-  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--eco-lime); }
-  .hero-title {
-    position: relative; z-index: 1;
-    font-family: 'Rajdhani', sans-serif; font-size: clamp(3.5rem, 8vw, 7.5rem);
-    font-weight: 700; line-height: 0.92; letter-spacing: -0.02em; color: var(--eco-white); margin-bottom: 2rem;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 0.5s forwards;
-  }
-  .hero-title span { color: var(--eco-lime); }
-  .hero-subtitle {
-    position: relative; z-index: 1;
-    font-size: 1.1rem; font-weight: 400; color: var(--eco-light); max-width: 600px; margin-bottom: 3rem; letter-spacing: 0.01em;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 0.7s forwards;
-  }
-  @keyframes heroFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .hero-stats {
-    position: relative; z-index: 1; display: flex; gap: 3rem; margin-bottom: 3rem;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 0.9s forwards;
-  }
-  .stat { border-left: 2px solid var(--eco-green); padding-left: 1.25rem; }
-  .stat-num { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--eco-lime); line-height: 1; }
-  .stat-label { font-size: 0.75rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; }
-  .hero-cta {
-    position: relative; z-index: 1; display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 1.1s forwards;
-  }
-  .btn-primary {
-    padding: 0.9rem 2.5rem; background: var(--eco-lime); color: var(--eco-dark); border: none;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
-    cursor: pointer; text-decoration: none; display: inline-block;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    transition: all 0.3s var(--ease);
-  }
-  .btn-primary:hover { background: var(--eco-accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126,200,80,0.3); }
-  .btn-outline {
-    padding: 0.9rem 2.5rem; background: transparent; color: var(--eco-light);
-    border: 1px solid rgba(126,200,80,0.4);
-    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
-    cursor: pointer; text-decoration: none; display: inline-block;
-    transition: all 0.3s var(--ease); border-radius: 2px;
-  }
-  .btn-outline:hover { border-color: var(--eco-lime); color: var(--eco-lime); background: rgba(126,200,80,0.05); transform: translateY(-2px); }
-  .hero-badges {
-    position: absolute; right: 5rem; top: 50%; transform: translateY(-50%);
-    display: flex; flex-direction: column; gap: 1rem; z-index: 1;
-  }
-  .badge {
-    background: rgba(15,35,24,0.85); border: 1px solid rgba(61,155,92,0.2);
-    backdrop-filter: blur(12px); padding: 1rem 1.25rem; border-radius: 6px; max-width: 230px;
-    transition: all 0.3s var(--ease); cursor: default;
-  }
-  .badge:hover { border-color: rgba(126,200,80,0.5); transform: translateX(-4px); box-shadow: 4px 0 20px rgba(126,200,80,0.1); }
-  .badge-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
-  .badge-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--eco-lime); letter-spacing: 0.05em; }
-  .badge-sub { font-size: 0.7rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; margin-top: 0.3rem; line-height: 1.5; }
-  .scroll-indicator {
-    position: absolute; bottom: 2.5rem; left: 5rem; z-index: 2;
-    display: flex; align-items: center; gap: 0.75rem;
-    opacity: 0; animation: heroFade 0.8s var(--ease-out) 1.4s forwards;
-  }
-  .scroll-indicator span { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--eco-gray); text-transform: uppercase; }
-  .scroll-line {
-    width: 40px; height: 1px; background: linear-gradient(to right, var(--eco-lime), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 5rem 6rem; position:relative; overflow:hidden; background: linear-gradient(160deg, #0f2a45 0%, #1a4f7a 40%, #1a6fa8 70%, #0d8a78 100%); }
+  .hero-bg { position:absolute; inset:0; background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(255,255,255,0.06) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(13,138,120,0.18) 0%, transparent 55%), radial-gradient(ellipse 40% 30% at 85% 10%, rgba(224,120,48,0.10) 0%, transparent 50%); }
+  .hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px); background-size:60px 60px; animation:gridShift 40s linear infinite; }
+  @keyframes gridShift { 0%{background-position:0 0} 100%{background-position:60px 60px} }
+  .hero-deco { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Rajdhani',sans-serif; font-size:28vw; font-weight:700; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.04); pointer-events:none; user-select:none; line-height:1; letter-spacing:-0.05em; white-space:nowrap; }
+  .hero-eyebrow { position:relative; z-index:1; display:flex; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.8rem; opacity:0; animation:heroFade 0.8s var(--ease-out) 0.3s forwards; }
+  .hero-eyebrow::before { display:none; }
+  .eyebrow-pill { font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.38rem 1rem; border-radius:20px; display:inline-flex; align-items:center; gap:0.45rem; transition:all 0.3s; cursor:default; }
+  .eyebrow-pill:nth-child(1) { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.35); color:#fff; }
+  .eyebrow-pill:nth-child(2) { background:rgba(13,138,120,0.25); border:1px solid rgba(13,138,120,0.5); color:#6fecd8; }
+  .eyebrow-pill:nth-child(3) { background:rgba(224,120,48,0.18); border:1px solid rgba(224,120,48,0.4); color:#f5aa74; }
+  .eyebrow-pill:hover { transform:translateY(-2px); filter:brightness(1.15); }
+  .eyebrow-pill svg { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+  .hero-title { position:relative; z-index:1; font-family:'Rajdhani',sans-serif; font-size:clamp(3.5rem,8vw,7.5rem); font-weight:700; line-height:0.92; letter-spacing:-0.02em; color:#fff; margin-bottom:2rem; opacity:0; animation:heroFade 0.8s var(--ease-out) 0.5s forwards; }
+  .hero-title span { color:#7fe8d8; }
+  .hero-subtitle { position:relative; z-index:1; font-size:1.1rem; font-weight:400; color:rgba(255,255,255,0.80); max-width:600px; margin-bottom:3rem; letter-spacing:0.01em; opacity:0; animation:heroFade 0.8s var(--ease-out) 0.7s forwards; }
+  @keyframes heroFade { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .hero-stats { position:relative; z-index:1; display:flex; gap:3rem; margin-bottom:3rem; opacity:0; animation:heroFade 0.8s var(--ease-out) 0.9s forwards; }
+  .stat { border-left:2px solid rgba(255,255,255,0.35); padding-left:1.25rem; }
+  .stat-num { font-family:'Rajdhani',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; line-height:1; }
+  .stat-label { font-size:0.75rem; color:rgba(255,255,255,0.6); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; }
+  .hero-cta { position:relative; z-index:1; display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:heroFade 0.8s var(--ease-out) 1.1s forwards; }
+  .btn-primary { padding:0.9rem 2.5rem; background:#fff; color:var(--primary-dk); border:none; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; border-radius:6px; transition:all 0.3s var(--ease); }
+  .btn-primary:hover { background:var(--accent); color:#fff; transform:translateY(-2px); box-shadow:0 8px 24px rgba(224,120,48,0.35); }
+  .btn-outline { padding:0.9rem 2.5rem; background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.5); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; border-radius:6px; transition:all 0.3s var(--ease); }
+  .btn-outline:hover { border-color:#fff; background:rgba(255,255,255,0.12); transform:translateY(-2px); }
+  .hero-badges { position:absolute; right:5rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:1rem; z-index:1; }
+  .badge { background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.22); backdrop-filter:blur(12px); padding:1rem 1.25rem; border-radius:10px; max-width:230px; transition:all 0.3s; cursor:default; }
+  .badge:hover { border-color:rgba(255,255,255,0.45); transform:translateX(-4px); box-shadow:4px 0 20px rgba(0,0,0,0.15); background:rgba(255,255,255,0.16); }
+  .badge-icon { font-size:1.4rem; margin-bottom:0.3rem; }
+  .badge-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.88rem; color:#fff; letter-spacing:0.05em; }
+  .badge-sub { font-size:0.7rem; color:rgba(255,255,255,0.65); font-family:'JetBrains Mono',monospace; margin-top:0.3rem; line-height:1.5; }
+  .scroll-indicator { position:absolute; bottom:2.5rem; left:5rem; z-index:2; display:flex; align-items:center; gap:0.75rem; opacity:0; animation:heroFade 0.8s var(--ease-out) 1.4s forwards; }
+  .scroll-indicator span { font-family:'JetBrains Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; color:rgba(255,255,255,0.5); text-transform:uppercase; }
+  .scroll-line { width:40px; height:1px; background:linear-gradient(to right,rgba(255,255,255,0.6),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
   /* SECTION BASE */
-  section { padding: 7rem 5rem; }
-  .section-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--eco-lime); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
-  }
-  .section-label::after { content: ''; flex: 1; max-width: 50px; height: 1px; background: var(--eco-lime); }
-  .section-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 700; line-height: 1.05; color: var(--eco-white); }
-  .section-title span { color: var(--eco-lime); }
+  section { padding:7rem 5rem; }
+  .section-label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--primary); margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
+  .section-label::after { content:''; flex:1; max-width:50px; height:1px; background:var(--primary); opacity:0.4; }
+  .section-title { font-family:'Rajdhani',sans-serif; font-size:clamp(2.2rem,4vw,3.5rem); font-weight:700; line-height:1.05; color:var(--text); }
+  .section-title span { color:var(--primary); }
 
   /* ABOUT */
-  #about { background: var(--eco-deep); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 4rem; }
-  .about-text p { margin-bottom: 1.5rem; color: var(--eco-light); font-size: 1rem; font-weight: 400; }
-  .about-text strong { color: var(--eco-lime); font-weight: 600; }
-  .compliance-cards { display: flex; flex-direction: column; gap: 0.75rem; }
-  .compliance-card {
-    background: rgba(45,106,63,0.08); border: 1px solid rgba(61,155,92,0.15);
-    border-left: 3px solid var(--eco-lime); padding: 1.25rem 1.5rem; border-radius: 0 6px 6px 0;
-    transition: all 0.3s var(--ease); cursor: default;
-  }
-  .compliance-card:hover { background: rgba(45,106,63,0.16); border-left-color: var(--eco-accent); transform: translateX(4px); }
-  .cc-head { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--eco-lime); letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-  .cc-val { font-size: 0.95rem; color: var(--eco-light); }
-  .cc-num { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--eco-gray); margin-top: 0.25rem; }
+  #about { background:var(--bg-soft); }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-top:4rem; }
+  .about-text p { margin-bottom:1.5rem; color:var(--text-body); font-size:1rem; }
+  .about-text strong { color:var(--primary); font-weight:600; }
+  .compliance-cards { display:flex; flex-direction:column; gap:0.75rem; }
+  .compliance-card { background:#fff; border:1px solid var(--border); border-left:3px solid var(--primary); padding:1.25rem 1.5rem; border-radius:0 8px 8px 0; transition:all 0.3s; cursor:default; box-shadow:0 1px 6px rgba(26,111,168,0.06); }
+  .compliance-card:hover { background:var(--primary-lt); border-left-color:var(--teal); transform:translateX(4px); box-shadow:0 4px 16px rgba(26,111,168,0.10); }
+  .cc-head { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.88rem; color:var(--primary); letter-spacing:0.05em; margin-bottom:0.3rem; }
+  .cc-val { font-size:0.95rem; color:var(--text-body); }
+  .cc-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-muted); margin-top:0.25rem; }
 
   /* SERVICES */
-  #services { background: var(--eco-dark); }
-  .services-intro { max-width: 700px; margin-bottom: 4rem; }
-  .services-intro p { color: var(--eco-light); font-size: 1rem; margin-top: 1.5rem; font-weight: 400; }
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(61,155,92,0.08); margin-bottom: 3rem; border-radius: 8px; overflow: hidden; }
-  .service-card {
-    background: var(--eco-dark); padding: 2.5rem 2rem;
-    transition: all 0.35s var(--ease); position: relative; overflow: hidden;
-  }
-  .service-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--eco-lime), var(--eco-accent)); opacity: 0; transition: opacity 0.3s;
-  }
-  .service-card::after {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at top left, rgba(126,200,80,0.07), transparent 65%);
-    opacity: 0; transition: opacity 0.4s;
-  }
-  .service-card:hover { background: rgba(15,35,24,0.95); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-  .service-card:hover::before, .service-card:hover::after { opacity: 1; }
-  .service-card.featured { background: rgba(26,58,37,0.45); border: 1px solid rgba(126,200,80,0.12); }
-  .service-card.featured::before { opacity: 1; }
-  .service-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--eco-gray); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-  .tag-current { background: var(--eco-lime); color: var(--eco-dark); padding: 0.15rem 0.5rem; font-size: 0.6rem; border-radius: 3px; font-weight: 700; }
-  .tag-future { background: rgba(245,166,35,0.12); color: var(--eco-accent); padding: 0.15rem 0.5rem; font-size: 0.6rem; border-radius: 3px; border: 1px solid rgba(245,166,35,0.3); }
-  .service-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-  .service-name { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.75rem; }
-  .service-desc { font-size: 0.92rem; color: var(--eco-light); font-weight: 400; line-height: 1.75; }
-  .service-capacity { margin-top: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--eco-lime); padding: 0.5rem 0.75rem; background: rgba(126,200,80,0.06); border-radius: 3px; border-left: 2px solid rgba(126,200,80,0.4); }
-  .waste-streams { margin-top: 2rem; padding: 2.5rem; background: var(--eco-deep); border: 1px solid rgba(61,155,92,0.12); border-radius: 8px; }
-  .ws-title { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--eco-white); margin-bottom: 1.5rem; }
-  .ws-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.4rem; }
-  .ws-item {
-    display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--eco-light);
-    padding: 0.45rem 0.75rem; border-radius: 4px; transition: background 0.2s, color 0.2s;
-  }
-  .ws-item:hover { background: rgba(126,200,80,0.08); color: var(--eco-white); }
-  .ws-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--eco-lime); flex-shrink: 0; }
+  #services { background:var(--bg); }
+  .services-intro { max-width:700px; margin-bottom:4rem; }
+  .services-intro p { color:var(--text-body); font-size:1rem; margin-top:1.5rem; }
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:3rem; }
+  .service-card { background:#fff; border:1px solid var(--border); padding:2.5rem 2rem; border-radius:12px; transition:all 0.35s; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(26,111,168,0.05); }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--primary),var(--teal)); opacity:0; transition:opacity 0.3s; }
+  .service-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(26,111,168,0.14); border-color:var(--border-md); }
+  .service-card:hover::before { opacity:1; }
+  .service-card.featured { background:var(--primary-lt); border-color:var(--border-md); }
+  .service-card.featured::before { opacity:1; }
+  .service-tag { font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem; }
+  .tag-current { background:var(--primary); color:#fff; padding:0.15rem 0.55rem; font-size:0.6rem; border-radius:4px; font-weight:700; }
+  .tag-future { background:rgba(224,120,48,0.10); color:var(--accent); padding:0.15rem 0.55rem; font-size:0.6rem; border-radius:4px; border:1px solid rgba(224,120,48,0.3); }
+  .service-icon { font-size:2rem; margin-bottom:1rem; display:block; }
+  .service-name { font-family:'Rajdhani',sans-serif; font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:0.75rem; }
+  .service-desc { font-size:0.92rem; color:var(--text-body); line-height:1.75; }
+  .service-capacity { margin-top:1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--primary); padding:0.5rem 0.75rem; background:var(--primary-lt); border-radius:4px; border-left:2px solid var(--primary); }
+  .waste-streams { margin-top:2rem; padding:2.5rem; background:var(--bg-soft); border:1px solid var(--border); border-radius:12px; }
+  .ws-title { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text); margin-bottom:1.5rem; }
+  .ws-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:0.4rem; }
+  .ws-item { display:flex; align-items:center; gap:0.6rem; font-size:0.85rem; color:var(--text-body); padding:0.45rem 0.75rem; border-radius:6px; transition:background 0.2s,color 0.2s; }
+  .ws-item:hover { background:var(--primary-lt); color:var(--primary); }
+  .ws-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); flex-shrink:0; }
 
   /* CO-PROCESSING */
-  #partners { background: var(--eco-deep); }
-  .partners-intro { max-width: 600px; margin-bottom: 4rem; }
-  .partners-intro p { color: var(--eco-light); font-size: 1rem; margin-top: 1.5rem; font-weight: 400; }
-  .cement-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
-  .cement-card {
-    background: rgba(15,35,24,0.6); border: 1px solid rgba(61,155,92,0.15); padding: 2rem 1.5rem;
-    text-align: center; transition: all 0.35s var(--ease); border-radius: 8px; position: relative; overflow: hidden;
-  }
-  .cement-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--eco-lime), var(--eco-accent));
-    transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
-  }
-  .cement-card:hover { border-color: rgba(126,200,80,0.35); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
-  .cement-card:hover::after { transform: scaleX(1); }
-  .cement-logo-text {
-    width: 76px; height: 76px; margin: 0 auto 1.25rem; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.5px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: transform 0.3s var(--ease);
-  }
-  .cement-card:hover .cement-logo-text { transform: scale(1.08); }
-  .dalmia-color { background: linear-gradient(135deg, #c41e3a, #8b0000); color: #fff; }
-  .jk-color { background: linear-gradient(135deg, #1a5276, #2e86ab); color: #fff; }
-  .wonder-color { background: linear-gradient(135deg, #e67e22, #d35400); color: #fff; }
-  .acc-color { background: linear-gradient(135deg, #2c3e50, #34495e); color: #fff; }
-  .cement-name { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.3rem; }
-  .cement-location { font-size: 0.75rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
-  .cement-badge { display: inline-block; margin-top: 0.75rem; padding: 0.2rem 0.7rem; background: rgba(126,200,80,0.1); border: 1px solid rgba(126,200,80,0.25); color: var(--eco-lime); font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 20px; }
-  .co-benefits { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2rem; }
-  .co-benefit { padding: 1.5rem; background: rgba(10,26,15,0.6); border-radius: 6px; border: 1px solid rgba(61,155,92,0.1); transition: border-color 0.3s; }
-  .co-benefit:hover { border-color: rgba(126,200,80,0.3); }
-  .co-benefit-title { color: var(--eco-lime); font-family: 'Rajdhani', sans-serif; font-weight: 600; margin-bottom: 0.5rem; font-size: 1rem; }
-  .co-benefit-desc { font-size: 0.88rem; color: var(--eco-light); line-height: 1.7; }
+  #partners { background:var(--bg-soft); }
+  .partners-intro { max-width:600px; margin-bottom:4rem; }
+  .partners-intro p { color:var(--text-body); font-size:1rem; margin-top:1.5rem; }
+  .cement-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-bottom:3rem; }
+  .cement-card { background:#fff; border:1px solid var(--border); padding:2rem 1.5rem; text-align:center; transition:all 0.35s; border-radius:12px; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(26,111,168,0.05); }
+  .cement-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--primary),var(--teal)); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
+  .cement-card:hover { border-color:var(--border-md); transform:translateY(-6px); box-shadow:0 16px 40px rgba(26,111,168,0.14); }
+  .cement-card:hover::after { transform:scaleX(1); }
+  .cement-logo-text { width:76px; height:76px; margin:0 auto 1.25rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1.1rem; box-shadow:0 4px 16px rgba(0,0,0,0.1); transition:transform 0.3s; }
+  .cement-card:hover .cement-logo-text { transform:scale(1.08); }
+  .dalmia-color { background:linear-gradient(135deg,#c41e3a,#8b0000); color:#fff; }
+  .jk-color { background:linear-gradient(135deg,#1a5276,#2e86ab); color:#fff; }
+  .wonder-color { background:linear-gradient(135deg,#e67e22,#d35400); color:#fff; }
+  .acc-color { background:linear-gradient(135deg,#2c3e50,#34495e); color:#fff; }
+  .cement-name { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; color:var(--text); margin-bottom:0.3rem; }
+  .cement-location { font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; letter-spacing:0.04em; }
+  .cement-badge { display:inline-block; margin-top:0.75rem; padding:0.2rem 0.7rem; background:var(--primary-lt); border:1px solid var(--border-md); color:var(--primary); font-size:0.65rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; border-radius:20px; }
+  .co-benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2rem; }
+  .co-benefit { padding:1.5rem; background:#fff; border-radius:10px; border:1px solid var(--border); transition:all 0.3s; box-shadow:0 1px 6px rgba(26,111,168,0.05); }
+  .co-benefit:hover { border-color:var(--border-md); box-shadow:0 6px 20px rgba(26,111,168,0.10); transform:translateY(-2px); }
+  .co-benefit-title { color:var(--primary); font-family:'Rajdhani',sans-serif; font-weight:700; margin-bottom:0.5rem; font-size:1rem; }
+  .co-benefit-desc { font-size:0.88rem; color:var(--text-body); line-height:1.7; }
 
   /* CLIENTS */
-  #clients { background: var(--eco-dark); }
-  .clients-intro { max-width: 650px; margin-bottom: 4rem; }
-  .clients-intro p { color: var(--eco-light); font-size: 1rem; margin-top: 1.5rem; font-weight: 400; }
-  .client-sectors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-  .client-sector { background: rgba(15,35,24,0.3); border: 1px solid rgba(61,155,92,0.1); border-radius: 6px; padding: 1.5rem; }
-  .cs-head { font-family: 'Rajdhani', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--eco-lime); padding-bottom: 0.75rem; border-bottom: 1px solid rgba(61,155,92,0.2); margin-bottom: 1rem; }
-  .client-item { padding: 0.6rem 0; border-bottom: 1px solid rgba(61,155,92,0.07); display: flex; align-items: flex-start; gap: 0.75rem; }
-  .client-item:last-child { border-bottom: none; }
-  .client-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--eco-green); margin-top: 0.55rem; flex-shrink: 0; transition: background 0.2s; }
-  .client-item:hover .client-bullet { background: var(--eco-lime); }
-  .client-name { font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--eco-white); }
-  .client-loc { font-size: 0.72rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; }
-  .client-waste { font-size: 0.78rem; color: var(--eco-light); font-style: italic; margin-top: 0.1rem; }
-  .clients-strip { margin-top: 2rem; padding: 2rem 0; border-top: 1px solid rgba(61,155,92,0.12); border-bottom: 1px solid rgba(61,155,92,0.12); overflow: hidden; position: relative; }
-  .clients-strip::before, .clients-strip::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
-  .clients-strip::before { left: 0; background: linear-gradient(to right, var(--eco-dark), transparent); }
-  .clients-strip::after { right: 0; background: linear-gradient(to left, var(--eco-dark), transparent); }
-  .strip-label { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; color: var(--eco-gray); text-transform: uppercase; margin-bottom: 1.5rem; }
-  .strip-track { display: flex; gap: 0; align-items: center; animation: marquee 35s linear infinite; }
-  .strip-track:hover { animation-play-state: paused; }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .strip-item { flex-shrink: 0; padding: 0.5rem 2rem; border-right: 1px solid rgba(61,155,92,0.12); font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--eco-gray); white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
-  .strip-item:hover { color: var(--eco-lime); }
+  #clients { background:var(--bg); }
+  .clients-intro { max-width:650px; margin-bottom:4rem; }
+  .clients-intro p { color:var(--text-body); font-size:1rem; margin-top:1.5rem; }
+  .client-sectors { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-bottom:3rem; }
+  .client-sector { background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.5rem; box-shadow:0 2px 8px rgba(26,111,168,0.05); }
+  .cs-head { font-family:'Rajdhani',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--primary); padding-bottom:0.75rem; border-bottom:2px solid var(--primary-lt); margin-bottom:1rem; }
+  .client-item { padding:0.6rem 0; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:0.75rem; }
+  .client-item:last-child { border-bottom:none; }
+  .client-bullet { width:5px; height:5px; border-radius:50%; background:var(--primary); margin-top:0.55rem; flex-shrink:0; opacity:0.5; transition:opacity 0.2s; }
+  .client-item:hover .client-bullet { opacity:1; }
+  .client-name { font-family:'Rajdhani',sans-serif; font-size:0.9rem; font-weight:600; color:var(--text); }
+  .client-loc { font-size:0.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
+  .client-waste { font-size:0.78rem; color:var(--text-body); font-style:italic; margin-top:0.1rem; }
+  .clients-strip { margin-top:2rem; padding:2rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; position:relative; background:var(--bg-soft); border-radius:8px; }
+  .clients-strip::before,.clients-strip::after { content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none; }
+  .clients-strip::before { left:0; background:linear-gradient(to right,var(--bg-soft),transparent); }
+  .clients-strip::after { right:0; background:linear-gradient(to left,var(--bg-soft),transparent); }
+  .strip-label { text-align:center; font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.2em; color:var(--text-muted); text-transform:uppercase; margin-bottom:1.5rem; }
+  .strip-track { display:flex; gap:0; align-items:center; animation:marquee 35s linear infinite; }
+  .strip-track:hover { animation-play-state:paused; }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .strip-item { flex-shrink:0; padding:0.5rem 2rem; border-right:1px solid var(--border); font-family:'Rajdhani',sans-serif; font-weight:600; font-size:0.85rem; color:var(--text-muted); white-space:nowrap; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .strip-item:hover { color:var(--primary); }
 
   /* LEADERSHIP */
-  #leadership { background: var(--eco-deep); }
-  .leadership-intro { max-width: 600px; margin-bottom: 4rem; }
-  .leadership-intro p { color: var(--eco-light); font-size: 1.05rem; margin-top: 1rem; }
-  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-  .team-card {
-    border: 1px solid rgba(61,155,92,0.12); padding: 2rem 1.5rem;
-    position: relative; overflow: hidden; transition: all 0.35s var(--ease);
-    background: rgba(10,26,15,0.5); border-radius: 8px;
-  }
-  .team-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at bottom left, rgba(126,200,80,0.07), transparent 70%);
-    opacity: 0; transition: opacity 0.4s;
-  }
-  .team-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--eco-lime), var(--eco-accent));
-    transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
-  }
-  .team-card:hover { border-color: rgba(126,200,80,0.3); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
-  .team-card:hover::before { opacity: 1; }
-  .team-card:hover::after { transform: scaleX(1); }
-  .team-avatar {
-    width: 68px; height: 68px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--eco-green), var(--eco-mid));
-    border: 2px solid rgba(126,200,80,0.25);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--eco-lime);
-    margin-bottom: 1.25rem; position: relative; z-index: 1;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .team-card:hover .team-avatar { border-color: rgba(126,200,80,0.6); box-shadow: 0 0 20px rgba(126,200,80,0.2); }
-  .team-name { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--eco-white); margin-bottom: 0.2rem; position: relative; z-index: 1; }
-  .team-role { font-size: 0.72rem; color: var(--eco-lime); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; position: relative; z-index: 1; }
-  .team-bio { font-size: 0.88rem; color: var(--eco-light); font-weight: 400; line-height: 1.7; position: relative; z-index: 1; }
+  #leadership { background:var(--bg-soft); }
+  .leadership-intro { max-width:600px; margin-bottom:4rem; }
+  .leadership-intro p { color:var(--text-body); font-size:1.05rem; margin-top:1rem; }
+  .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
+  .team-card { background:#fff; border:1px solid var(--border); padding:2rem 1.5rem; position:relative; overflow:hidden; transition:all 0.35s; border-radius:12px; box-shadow:0 2px 8px rgba(26,111,168,0.05); }
+  .team-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--primary),var(--teal)); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
+  .team-card:hover { border-color:var(--border-md); transform:translateY(-4px); box-shadow:0 12px 32px rgba(26,111,168,0.12); }
+  .team-card:hover::after { transform:scaleX(1); }
+  .team-avatar { width:68px; height:68px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--teal)); display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1.4rem; color:#fff; margin-bottom:1.25rem; }
+  .team-name { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text); margin-bottom:0.2rem; }
+  .team-role { font-size:0.72rem; color:var(--primary); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:1rem; }
+  .team-bio { font-size:0.88rem; color:var(--text-body); line-height:1.7; }
 
   /* FACILITY */
-  #facility { background: var(--eco-dark); }
-  .facility-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; margin-top: 4rem; }
-  .facility-desc { color: var(--eco-light); font-size: 0.98rem; margin-bottom: 2rem; line-height: 1.8; font-weight: 400; }
-  .facility-specs { display: flex; flex-direction: column; border: 1px solid rgba(61,155,92,0.12); border-radius: 6px; overflow: hidden; }
-  .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.25rem; border-bottom: 1px solid rgba(61,155,92,0.08); background: rgba(15,35,24,0.4); transition: background 0.2s; }
-  .spec-row:last-child { border-bottom: none; }
-  .spec-row:hover { background: rgba(45,106,63,0.18); }
-  .spec-key { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--eco-gray); letter-spacing: 0.05em; text-transform: uppercase; }
-  .spec-val { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--eco-lime); text-align: right; }
-  .process-flow { background: var(--eco-deep); border: 1px solid rgba(61,155,92,0.15); padding: 2.5rem; border-radius: 8px; }
-  .pf-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; color: var(--eco-light); margin-bottom: 2rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .flow-steps { position: relative; }
-  .flow-steps::before {
-    content: ''; position: absolute; left: 15px; top: 16px; bottom: 16px; width: 1px;
-    background: linear-gradient(to bottom, var(--eco-lime), rgba(126,200,80,0.08));
-  }
-  .flow-step { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.1rem 0; }
-  .flow-num {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(45,106,63,0.4); border: 1px solid var(--eco-green);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--eco-lime);
-    flex-shrink: 0; position: relative; z-index: 1;
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-  }
-  .flow-step:hover .flow-num { background: var(--eco-lime); color: var(--eco-dark); border-color: var(--eco-lime); box-shadow: 0 0 16px rgba(126,200,80,0.4); }
-  .flow-name { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--eco-white); }
-  .flow-desc { font-size: 0.82rem; color: var(--eco-gray); margin-top: 0.25rem; line-height: 1.6; }
+  #facility { background:var(--bg); }
+  .facility-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:5rem; align-items:center; margin-top:4rem; }
+  .facility-desc { color:var(--text-body); font-size:0.98rem; margin-bottom:2rem; line-height:1.8; }
+  .facility-specs { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:10px; overflow:hidden; box-shadow:0 2px 12px rgba(26,111,168,0.06); }
+  .spec-row { display:flex; justify-content:space-between; align-items:center; padding:0.9rem 1.25rem; border-bottom:1px solid var(--border); background:#fff; transition:background 0.2s; }
+  .spec-row:last-child { border-bottom:none; }
+  .spec-row:hover { background:var(--primary-lt); }
+  .spec-key { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase; }
+  .spec-val { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.95rem; color:var(--primary); text-align:right; }
+  .process-flow { background:var(--bg-soft); border:1px solid var(--border); padding:2.5rem; border-radius:12px; }
+  .pf-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:2rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .flow-steps { position:relative; }
+  .flow-steps::before { content:''; position:absolute; left:15px; top:16px; bottom:16px; width:1px; background:linear-gradient(to bottom,var(--primary),rgba(26,111,168,0.08)); }
+  .flow-step { display:flex; align-items:flex-start; gap:1.25rem; padding:1.1rem 0; }
+  .flow-num { width:32px; height:32px; border-radius:50%; background:var(--primary-lt); border:2px solid var(--primary); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--primary); flex-shrink:0; position:relative; z-index:1; transition:all 0.3s; }
+  .flow-step:hover .flow-num { background:var(--primary); color:#fff; box-shadow:0 0 16px rgba(26,111,168,0.3); }
+  .flow-name { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.95rem; color:var(--text); }
+  .flow-desc { font-size:0.82rem; color:var(--text-muted); margin-top:0.25rem; line-height:1.6; }
 
   /* CONTACT */
-  #contact { background: var(--eco-deep); border-top: 1px solid rgba(61,155,92,0.12); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; margin-top: 4rem; }
-  .contact-block { margin-bottom: 2.5rem; }
-  .cb-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--eco-lime); margin-bottom: 0.5rem; }
-  .cb-val { font-size: 1.05rem; color: var(--eco-light); line-height: 1.7; }
-  .cb-val a { color: var(--eco-light); text-decoration: none; transition: color 0.2s; }
-  .cb-val a:hover { color: var(--eco-lime); }
-  .contact-reg { background: rgba(15,35,24,0.6); border: 1px solid rgba(61,155,92,0.15); padding: 2rem; border-radius: 8px; }
-  .reg-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; color: var(--eco-white); margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
-  .reg-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.65rem 0; border-bottom: 1px solid rgba(61,155,92,0.07); gap: 1rem; }
-  .reg-row:last-child { border-bottom: none; }
-  .rr-key { color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; }
-  .rr-val { color: var(--eco-light); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-align: right; }
+  #contact { background:var(--bg-soft); border-top:1px solid var(--border); }
+  .contact-grid { display:grid; grid-template-columns:1fr 1.5fr; gap:5rem; margin-top:4rem; }
+  .contact-block { margin-bottom:2.5rem; }
+  .cb-label { font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--primary); margin-bottom:0.5rem; }
+  .cb-val { font-size:1.05rem; color:var(--text-body); line-height:1.7; }
+  .cb-val a { color:var(--primary); text-decoration:none; transition:color 0.2s; }
+  .cb-val a:hover { color:var(--primary-dk); text-decoration:underline; }
+  .contact-reg { background:#fff; border:1px solid var(--border); padding:2rem; border-radius:12px; box-shadow:0 2px 12px rgba(26,111,168,0.06); }
+  .reg-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:1.5rem; letter-spacing:0.05em; text-transform:uppercase; }
+  .reg-row { display:flex; justify-content:space-between; align-items:baseline; padding:0.65rem 0; border-bottom:1px solid var(--border); gap:1rem; }
+  .reg-row:last-child { border-bottom:none; }
+  .rr-key { color:var(--text-muted); font-family:'JetBrains Mono',monospace; font-size:0.7rem; white-space:nowrap; flex-shrink:0; }
+  .rr-val { color:var(--text-body); font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-align:right; }
+
+  /* TAGLINE STRIP */
+  .tagline-strip { background:linear-gradient(90deg,var(--primary-dk) 0%,var(--primary) 50%,var(--teal) 100%); padding:0.9rem 5rem; display:flex; align-items:center; justify-content:center; gap:1.5rem; flex-wrap:wrap; }
+  .tagline-strip span { font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.80); }
+  .tagline-strip .ts-dot { color:rgba(255,255,255,0.3); }
 
   /* FOOTER */
-  footer {
-    background: #091a0e; padding: 3rem 5rem;
-    border-top: 1px solid rgba(61,155,92,0.08);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-  }
-  .footer-logo { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--eco-white); }
-  .footer-logo span { color: var(--eco-lime); }
-  .footer-copy { font-size: 0.75rem; color: var(--eco-gray); font-family: 'JetBrains Mono', monospace; }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-links a { font-size: 0.72rem; color: var(--eco-gray); text-decoration: none; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--eco-lime); }
+  footer { background:#0f2a45; padding:3rem 5rem; border-top:none; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+  .footer-logo { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1.2rem; color:#fff; }
+  .footer-logo span { color:#7fe8d8; }
+  .footer-copy { font-size:0.75rem; color:rgba(255,255,255,0.45); font-family:'JetBrains Mono',monospace; }
+  .footer-links { display:flex; gap:2rem; }
+  .footer-links a { font-size:0.72rem; color:rgba(255,255,255,0.45); text-decoration:none; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.2s; }
+  .footer-links a:hover { color:#fff; }
 
   /* BACK TO TOP */
-  #back-top {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
-    width: 44px; height: 44px; border-radius: 6px;
-    background: rgba(45,106,63,0.85); border: 1px solid rgba(126,200,80,0.4);
-    backdrop-filter: blur(10px); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transform: translateY(10px);
-    transition: all 0.3s var(--ease);
-  }
-  #back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  #back-top:hover { background: var(--eco-lime); border-color: var(--eco-lime); }
-  #back-top svg { width: 18px; height: 18px; fill: none; stroke: var(--eco-white); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-  #back-top:hover svg { stroke: var(--eco-dark); }
+  #back-top { position:fixed; bottom:2rem; right:2rem; z-index:90; width:44px; height:44px; border-radius:8px; background:var(--primary); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform:translateY(10px); transition:all 0.3s; box-shadow:0 4px 16px rgba(26,111,168,0.3); }
+  #back-top.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  #back-top:hover { background:var(--primary-dk); box-shadow:0 6px 20px rgba(26,111,168,0.4); }
+  #back-top svg { width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
 
   /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--eco-dark); }
-  ::-webkit-scrollbar-thumb { background: var(--eco-green); border-radius: 2px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--eco-lime); }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--bg-soft); }
+  ::-webkit-scrollbar-thumb { background:var(--primary); border-radius:2px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--primary-dk); }
 
   /* RESPONSIVE */
-  @media (max-width: 1100px) {
-    .team-grid { grid-template-columns: repeat(2, 1fr); }
-    .cement-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 900px) {
-    nav { padding: 0 2rem; }
-    .nav-links, .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    section { padding: 5rem 2rem; }
-    #hero { padding: 90px 2rem 5rem; justify-content: flex-start; }
-    .hero-badges { display: none; }
-    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
-    .scroll-indicator { left: 2rem; }
-    .about-grid, .facility-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .client-sectors { grid-template-columns: 1fr; }
-    .co-benefits { grid-template-columns: 1fr; }
-    footer { padding: 2rem; flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
-  }
-  @media (max-width: 600px) {
-    .team-grid { grid-template-columns: 1fr; }
-    .cement-grid { grid-template-columns: 1fr; }
-    .hero-title { font-size: clamp(2.8rem, 12vw, 5rem); }
-    .hero-stats { gap: 1.25rem; }
-  }
+  @media (max-width:1100px) { .team-grid{grid-template-columns:repeat(2,1fr)} .cement-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:900px) { nav{padding:0 2rem} .nav-links,.nav-cta{display:none} .hamburger{display:flex} section{padding:5rem 2rem} #hero{padding:90px 2rem 5rem;justify-content:flex-start} .hero-badges{display:none} .hero-stats{flex-wrap:wrap;gap:1.5rem} .scroll-indicator{left:2rem} .about-grid,.facility-grid,.contact-grid{grid-template-columns:1fr;gap:3rem} .services-grid{grid-template-columns:1fr} .client-sectors{grid-template-columns:1fr} .co-benefits{grid-template-columns:1fr} footer{padding:2rem;flex-direction:column;text-align:center} .footer-links{justify-content:center} .tagline-strip{padding:0.9rem 2rem} }
+  @media (max-width:600px) { .team-grid{grid-template-columns:1fr} .cement-grid{grid-template-columns:1fr} .hero-title{font-size:clamp(2.8rem,12vw,5rem)} .hero-stats{gap:1.25rem} }
 </style>
 </head>
 <body>
@@ -510,8 +284,8 @@
 
 <nav id="nav">
   <a href="#hero" class="nav-logo">
-    <div class="nav-logo-icon">eCO</div>
-    <div class="nav-brand">ECOO Alternate Fuels<small>India Private Limited</small></div>
+    <div class="nav-logo-icon"><img src="ecoo-logo.jpg" alt="ECOO Logo"></div>
+    <div class="nav-brand">ECOO Alternate Fuels<small>Waste Management Excellence · India Private Limited</small></div>
   </a>
   <div class="nav-right">
     <ul class="nav-links">
@@ -544,15 +318,29 @@
   <div class="hero-grid"></div>
   <div class="hero-deco">ECOO</div>
 
-  <div class="hero-eyebrow">Incorporated Dec 2023 · MPCB Consent Valid to Sept 2029</div>
-  <h1 class="hero-title">Transforming<br>Hazardous <span>Waste</span><br>Into Fuel</h1>
-  <p class="hero-subtitle">Maharashtra's trusted pre-processor of industrial hazardous waste — converting complex waste streams into certified alternate fuels for cement co-processing.</p>
+  <div class="hero-eyebrow">
+    <span class="eyebrow-pill">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+      Waste Management Excellence
+    </span>
+    <span class="eyebrow-pill">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+      Environmental Responsibility
+    </span>
+    <span class="eyebrow-pill">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></svg>
+      Compliance Assured
+    </span>
+  </div>
+  <h1 class="hero-title">Transforming<br>Hazardous <span>Waste</span><br>Into <span>AFR</span></h1>
+  <p style="position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.2em;color:var(--eco-accent);text-transform:uppercase;margin-top:-1.6rem;margin-bottom:2.5rem;opacity:0;animation:heroFade 0.8s var(--ease-out) 0.62s forwards;">— Alternate Fuel Resource</p>
+  <p class="hero-subtitle">Maharashtra's trusted pre-processor of industrial hazardous waste — converting complex waste streams into certified Alternate Fuel Resources for cement co-processing.</p>
 
   <div class="hero-stats">
     <div class="stat"><div class="stat-num" data-count="48000" data-suffix="">48,000</div><div class="stat-label">MT/Year Capacity</div></div>
     <div class="stat"><div class="stat-num" data-count="20" data-suffix="+">20+</div><div class="stat-label">Industry Clients</div></div>
     <div class="stat"><div class="stat-num" data-count="4" data-suffix="">4</div><div class="stat-label">Cement Partners</div></div>
-    <div class="stat"><div class="stat-num">₹4.996Cr</div><div class="stat-label">Capital Investment</div></div>
+    <div class="stat"><div class="stat-num" data-count="3" data-suffix="">3</div><div class="stat-label">CMD ZLD Treatment</div></div>
   </div>
 
   <div class="hero-cta">
@@ -564,7 +352,7 @@
     <div class="badge">
       <div class="badge-icon">🏛️</div>
       <div class="badge-title">MPCB Authorized</div>
-      <div class="badge-sub">Consent No. MPCB-CONSENT-<br>0000216187 · Date 24/11/2024</div>
+      <div class="badge-sub">Maharashtra Pollution Control Board<br>Authorized Operator · Valid to Sept 2029</div>
     </div>
     <div class="badge">
       <div class="badge-icon">⚖️</div>
@@ -598,17 +386,12 @@
       <div class="compliance-card">
         <div class="cc-head">MPCB Consent to Operate</div>
         <div class="cc-val">Granted — Valid until 30/09/2029</div>
-        <div class="cc-num">No. MPCB-CONSENT-0000216187/CO/2411001408 · Date: 24/11/2024</div>
+        <div class="cc-num">Maharashtra Pollution Control Board · Date: 24/11/2024</div>
       </div>
       <div class="compliance-card">
-        <div class="cc-head">Company Registration (CIN)</div>
-        <div class="cc-val">U38210PN2023PTC226912</div>
+        <div class="cc-head">Company Registration</div>
+        <div class="cc-val">Registered under Companies Act 2013</div>
         <div class="cc-num">Ministry of Corporate Affairs — December 30, 2023</div>
-      </div>
-      <div class="compliance-card">
-        <div class="cc-head">PAN & TAN</div>
-        <div class="cc-val">PAN: AAHCE9480A · TAN: PNEE09182F</div>
-        <div class="cc-num">Issued by Income Tax Department of India</div>
       </div>
       <div class="compliance-card">
         <div class="cc-head">Authorized Production</div>
@@ -644,7 +427,7 @@
       <div class="service-icon">🔥</div>
       <div class="service-name">Alternate Fuel Production</div>
       <div class="service-desc">Blending and homogenizing pre-processed waste into certified alternate fuels meeting calorific specifications for cement kiln co-processing, replacing fossil fuels and reducing CO₂ emissions.</div>
-      <div class="service-capacity">🏭 Supplied to Dalmia, JK, Wonder & ACC Cement Plants</div>
+      <div class="service-capacity">🏭 Supplied to Authorized Cement Plants Across India</div>
     </div>
     <div class="service-card featured fade-up fade-up-delay-2">
       <div class="service-tag"><span class="tag-current">Current</span></div>
@@ -705,27 +488,27 @@
 
   <div class="cement-grid">
     <div class="cement-card fade-up">
-      <div class="cement-logo-text dalmia-color">DC</div>
-      <div class="cement-name">Dalmia Cement Bharat Ltd</div>
-      <div class="cement-location">Odisha · Belgaum, Karnataka</div>
+      <div class="cement-logo-text dalmia-color">P1</div>
+      <div class="cement-name">Cement Partner — South India</div>
+      <div class="cement-location">Karnataka · Odisha Region</div>
       <div class="cement-badge">Primary Partner</div>
     </div>
     <div class="cement-card fade-up fade-up-delay-1">
-      <div class="cement-logo-text jk-color">JK</div>
-      <div class="cement-name">JK Cement Ltd</div>
-      <div class="cement-location">Muddapur, Karnataka</div>
+      <div class="cement-logo-text jk-color">P2</div>
+      <div class="cement-name">Cement Partner — South India</div>
+      <div class="cement-location">Karnataka Region</div>
       <div class="cement-badge">Regular Supply</div>
     </div>
     <div class="cement-card fade-up fade-up-delay-2">
-      <div class="cement-logo-text wonder-color">WC</div>
-      <div class="cement-name">Wonder Cement Ltd</div>
-      <div class="cement-location">Rajasthan</div>
+      <div class="cement-logo-text wonder-color">P3</div>
+      <div class="cement-name">Cement Partner — North India</div>
+      <div class="cement-location">Rajasthan Region</div>
       <div class="cement-badge">Active Partner</div>
     </div>
     <div class="cement-card fade-up fade-up-delay-3">
-      <div class="cement-logo-text acc-color">ACC</div>
-      <div class="cement-name">ACC Ltd</div>
-      <div class="cement-location">Wadi Cement Works, Kalaburagi</div>
+      <div class="cement-logo-text acc-color">P4</div>
+      <div class="cement-name">Cement Partner — South India</div>
+      <div class="cement-location">Karnataka Region</div>
       <div class="cement-badge">Active Partner</div>
     </div>
   </div>
@@ -759,42 +542,41 @@
   <div class="client-sectors">
     <div class="client-sector fade-up">
       <div class="cs-head">Pharma & Chemicals</div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Cipla Ltd</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Chemical sludge</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Aarti Drugs Ltd</div><div class="client-loc">Boisar, Thane</div><div class="client-waste">Organic residue, chemical sludge, concentration residue</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Prasol Chemicals Ltd</div><div class="client-loc">Mahad / Khopoli</div><div class="client-waste">Organic residue, zinc cake, ETP sludge, wettable sulphur</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Mesha Pharma Pvt Ltd</div><div class="client-loc">Tarapur, Palghar</div><div class="client-waste">Chemical sludge from wastewater treatment</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Eternis Fine Chemicals</div><div class="client-loc">Sinner, Nasik / Kurkumbh</div><div class="client-waste">Distillation residue, ETP sludge, mixed waste</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Halides Chemicals Pvt Ltd</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Organic residue</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Omniactive Health Technologies</div><div class="client-loc">Hinjewadi, Pune</div><div class="client-waste">Chemical sludge, non-hazardous waste</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Sarex Overseas</div><div class="client-loc">Tarapur, Boisar</div><div class="client-waste">Spent solvents, spent carbon, chemical sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Leading Pharmaceutical Company</div><div class="client-loc">Pune Region</div><div class="client-waste">Chemical sludge, organic residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Specialty Chemicals Manufacturer</div><div class="client-loc">Thane / Raigad</div><div class="client-waste">Organic residue, chemical sludge, concentration residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Fine Chemicals Producer</div><div class="client-loc">Pune / Raigad Region</div><div class="client-waste">Organic residue, ETP sludge, mixed waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Pharmaceutical Manufacturer</div><div class="client-loc">Palghar / Thane</div><div class="client-waste">Chemical sludge from wastewater treatment</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Specialty Chemical Company</div><div class="client-loc">Nasik / Pune Region</div><div class="client-waste">Distillation residue, ETP sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Industrial Chemicals Unit</div><div class="client-loc">Pune Region</div><div class="client-waste">Organic residue, spent solvents</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Health & Nutrition Company</div><div class="client-loc">Pune Region</div><div class="client-waste">Chemical sludge, non-hazardous waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Textile Chemicals Company</div><div class="client-loc">Palghar / Thane</div><div class="client-waste">Spent solvents, spent carbon, chemical sludge</div></div></div>
     </div>
 
     <div class="client-sector fade-up fade-up-delay-1">
       <div class="cs-head">Steel & Heavy Manufacturing</div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Tata Steel Limited</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Soap sludge, grinding sludge, ETP sludge, phosphate sludge, zinc ash, glass wool, mill sludge</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">AMNS Khopoli Ltd</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">TSL Aurangabad</div><div class="client-loc">Aurangabad</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Shirke Enterprises</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Spent solvent</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Star Mech-Controls</div><div class="client-loc">Kurkumbh, Pune</div><div class="client-waste">Spent solvent</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Integrated Steel Manufacturer</div><div class="client-loc">Raigad Region</div><div class="client-waste">Soap sludge, grinding sludge, ETP sludge, phosphate sludge, zinc ash</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Steel Processing Unit</div><div class="client-loc">Raigad Region</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Steel Manufacturing Plant</div><div class="client-loc">Aurangabad Region</div><div class="client-waste">Oil soaked cotton waste</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Industrial Enterprise</div><div class="client-loc">Pune Region</div><div class="client-waste">Spent solvent</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Engineering Components Unit</div><div class="client-loc">Pune Region</div><div class="client-waste">Spent solvent</div></div></div>
     </div>
 
     <div class="client-sector fade-up fade-up-delay-2">
       <div class="cs-head">Engineering & Speciality</div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Forbes Marshall Arca Pvt Ltd</div><div class="client-loc">Pimpri, Pune</div><div class="client-waste">Paint sludge</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Krohne Marshall Pvt Ltd</div><div class="client-loc">Pimpri, Pune</div><div class="client-waste">Paint sludge</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Klaus Union Engg. India</div><div class="client-loc">Hadapsar, Pune</div><div class="client-waste">Paint sludge</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">3M India Ltd</div><div class="client-loc">Ranjangaon, Pune</div><div class="client-waste">Waste & chemical residue</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Vibrantz Colorant Technologies</div><div class="client-loc">Panvel, Raigad</div><div class="client-waste">Paint buckets, ETP sludge, ETP water</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Frigorifico Allana Pvt Ltd</div><div class="client-loc">Khalapur, Raigad</div><div class="client-waste">Chemical sludge from wastewater treatment</div></div></div>
-      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Allana Consumer Products</div><div class="client-loc">Khopoli, Raigad</div><div class="client-waste">Biodegradable food waste, cake gel</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Industrial Engineering MNC</div><div class="client-loc">Pune Region</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Flow & Process Equipment MNC</div><div class="client-loc">Pune Region</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Pumping Solutions Company</div><div class="client-loc">Pune Region</div><div class="client-waste">Paint sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Global Industrial MNC</div><div class="client-loc">Pune Region</div><div class="client-waste">Waste & chemical residue</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Colorants & Coatings Company</div><div class="client-loc">Raigad Region</div><div class="client-waste">Paint buckets, ETP sludge</div></div></div>
+      <div class="client-item"><span class="client-bullet"></span><div><div class="client-name">Food Processing Industry</div><div class="client-loc">Raigad Region</div><div class="client-waste">Chemical sludge from wastewater treatment, biodegradable waste</div></div></div>
     </div>
   </div>
 
   <div class="clients-strip">
-    <div class="strip-label">Our Esteemed Clients</div>
+    <div class="strip-label">Our Esteemed Client Sectors</div>
     <div class="strip-track">
-      <div class="strip-item">Cipla Ltd</div><div class="strip-item">Tata Steel</div><div class="strip-item">3M India</div><div class="strip-item">Aarti Drugs</div><div class="strip-item">Forbes Marshall</div><div class="strip-item">Prasol Chemicals</div><div class="strip-item">Vibrantz Colorant</div><div class="strip-item">Sarex Overseas</div><div class="strip-item">Omniactive Health</div><div class="strip-item">Krohne Marshall</div><div class="strip-item">Klaus Union Engg</div><div class="strip-item">Frigorifico Allana</div><div class="strip-item">Eternis Fine Chemicals</div><div class="strip-item">Halides Chemicals</div><div class="strip-item">AMNS Khopoli</div><div class="strip-item">Mesha Pharma</div><div class="strip-item">Allana Consumer Products</div>
-      <div class="strip-item">Cipla Ltd</div><div class="strip-item">Tata Steel</div><div class="strip-item">3M India</div><div class="strip-item">Aarti Drugs</div><div class="strip-item">Forbes Marshall</div><div class="strip-item">Prasol Chemicals</div><div class="strip-item">Vibrantz Colorant</div><div class="strip-item">Sarex Overseas</div><div class="strip-item">Omniactive Health</div><div class="strip-item">Krohne Marshall</div><div class="strip-item">Klaus Union Engg</div><div class="strip-item">Frigorifico Allana</div><div class="strip-item">Eternis Fine Chemicals</div><div class="strip-item">Halides Chemicals</div><div class="strip-item">AMNS Khopoli</div><div class="strip-item">Mesha Pharma</div><div class="strip-item">Allana Consumer Products</div>
+      <div class="strip-item">Pharmaceuticals</div><div class="strip-item">Specialty Chemicals</div><div class="strip-item">Steel Manufacturing</div><div class="strip-item">Paints & Coatings</div><div class="strip-item">Food Processing</div><div class="strip-item">Engineering MNCs</div><div class="strip-item">Industrial Chemicals</div><div class="strip-item">Textile Chemicals</div><div class="strip-item">Health & Nutrition</div><div class="strip-item">Flow Equipment</div><div class="strip-item">Metal Processing</div><div class="strip-item">Heavy Manufacturing</div><div class="strip-item">Colorants Industry</div><div class="strip-item">Fine Chemicals</div><div class="strip-item">Automotive Sector</div><div class="strip-item">Petrochemicals</div><div class="strip-item">Consumer Products</div>
+      <div class="strip-item">Pharmaceuticals</div><div class="strip-item">Specialty Chemicals</div><div class="strip-item">Steel Manufacturing</div><div class="strip-item">Paints & Coatings</div><div class="strip-item">Food Processing</div><div class="strip-item">Engineering MNCs</div><div class="strip-item">Industrial Chemicals</div><div class="strip-item">Textile Chemicals</div><div class="strip-item">Health & Nutrition</div><div class="strip-item">Flow Equipment</div><div class="strip-item">Metal Processing</div><div class="strip-item">Heavy Manufacturing</div><div class="strip-item">Colorants Industry</div><div class="strip-item">Fine Chemicals</div><div class="strip-item">Automotive Sector</div><div class="strip-item">Petrochemicals</div><div class="strip-item">Consumer Products</div>
     </div>
   </div>
 </section>
@@ -840,11 +622,10 @@
     <div class="fade-up fade-up-delay-2">
       <p class="facility-desc">Located in MIDC Kurkumbh — one of Maharashtra's most industrial-friendly zones — our facility features covered sheds with impervious flooring, advanced screening and sorting equipment, fume extraction systems, fire protection, and a 3 CMD Zero Liquid Discharge effluent treatment plant.</p>
       <div class="facility-specs">
-        <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Plot A 93/5, MIDC Kurkumbh, Daund, Pune</span></div>
+        <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">MIDC Kurkumbh, Daund, Pune</span></div>
         <div class="spec-row"><span class="spec-key">Organic AF Capacity</span><span class="spec-val">36,000 MT / Year</span></div>
         <div class="spec-row"><span class="spec-key">Inorganic AF Capacity</span><span class="spec-val">12,000 MT / Year</span></div>
         <div class="spec-row"><span class="spec-key">Total Capacity</span><span class="spec-val">48,000 MT / Year</span></div>
-        <div class="spec-row"><span class="spec-key">Capital Investment</span><span class="spec-val">₹ 4.996 Crores</span></div>
         <div class="spec-row"><span class="spec-key">ETP Capacity</span><span class="spec-val">3.00 CMD · Zero Liquid Discharge</span></div>
         <div class="spec-row"><span class="spec-key">MPCB Consent Valid</span><span class="spec-val">30/09/2029</span></div>
         <div class="spec-row"><span class="spec-key">Category</span><span class="spec-val">RED / SSI (R32)</span></div>
@@ -857,7 +638,7 @@
         <div class="flow-step"><div class="flow-num">02</div><div class="flow-content"><div class="flow-name">Characterization & Segregation</div><div class="flow-desc">Metal detection, EM separation; disc/rotary/trommel screening for waste stream identification and classification.</div></div></div>
         <div class="flow-step"><div class="flow-num">03</div><div class="flow-content"><div class="flow-name">Pre-Processing & Dehydration</div><div class="flow-desc">Blending, size reduction, dehydration and moisture control to optimize calorific value and handling characteristics.</div></div></div>
         <div class="flow-step"><div class="flow-num">04</div><div class="flow-content"><div class="flow-name">Alternate Fuel Formulation</div><div class="flow-desc">Precise blending to meet cement plant specifications — calorific value, chlorine content, moisture, and particle size.</div></div></div>
-        <div class="flow-step"><div class="flow-num">05</div><div class="flow-content"><div class="flow-name">Dispatch to Cement Co-Processors</div><div class="flow-desc">Certified alternate fuel dispatched to authorized cement plants — Dalmia, JK Cement, Wonder Cement and ACC.</div></div></div>
+        <div class="flow-step"><div class="flow-num">05</div><div class="flow-content"><div class="flow-name">Dispatch to Cement Co-Processors</div><div class="flow-desc">Certified alternate fuel dispatched to authorized cement plants across India for kiln co-processing under CPCB guidelines.</div></div></div>
       </div>
     </div>
   </div>
@@ -882,29 +663,32 @@
       </div>
       <div class="contact-block">
         <div class="cb-label">Email</div>
-        <div class="cb-val"><a href="mailto:ecooalternatefuelsind@gmail.com">ecooalternatefuelsind@gmail.com</a></div>
+        <div class="cb-val"><a href="/cdn-cgi/l/email-protection#395c5a565658554d5c4b57584d5c5f4c5c554a50575d795e54585055175a5654"><span class="__cf_email__" data-cfemail="8beee8e4e4eae7ffeef9e5eaffeeedfeeee7f8e2e5efcbece6eae2e7a5e8e4e6">[email&#160;protected]</span></a></div>
       </div>
     </div>
     <div class="contact-reg fade-up fade-up-delay-3">
       <div class="reg-title">Company Registration Details</div>
       <div class="reg-row"><span class="rr-key">Company Name</span><span class="rr-val">ECOO Alternate Fuels India Pvt. Ltd.</span></div>
-      <div class="reg-row"><span class="rr-key">CIN</span><span class="rr-val">U38210PN2023PTC226912</span></div>
-      <div class="reg-row"><span class="rr-key">PAN</span><span class="rr-val">AAHCE9480A</span></div>
-      <div class="reg-row"><span class="rr-key">TAN</span><span class="rr-val">PNEE09182F</span></div>
       <div class="reg-row"><span class="rr-key">Date of Incorporation</span><span class="rr-val">30 December 2023</span></div>
-      <div class="reg-row"><span class="rr-key">MPCB Consent No.</span><span class="rr-val">MPCB-CONSENT-0000216187</span></div>
-      <div class="reg-row"><span class="rr-key">Consent Date</span><span class="rr-val">24 November 2024</span></div>
-      <div class="reg-row"><span class="rr-key">Consent Valid Till</span><span class="rr-val">30 September 2029</span></div>
+      <div class="reg-row"><span class="rr-key">MPCB Consent Valid</span><span class="rr-val">30 September 2029</span></div>
       <div class="reg-row"><span class="rr-key">Category</span><span class="rr-val">RED / SSI (R32)</span></div>
       <div class="reg-row"><span class="rr-key">Regulatory Framework</span><span class="rr-val">HWM Rules 2016 · CPCB Authorized</span></div>
     </div>
   </div>
 </section>
 
+<div class="tagline-strip">
+  <span>♻️ Waste Management Excellence</span>
+  <span class="ts-dot">·</span>
+  <span>🌿 Environmental Responsibility</span>
+  <span class="ts-dot">·</span>
+  <span>🛡️ Compliance Assured</span>
+</div>
+
 <footer>
   <div>
     <div class="footer-logo">eCOO <span>Alternate Fuels India</span></div>
-    <div style="font-size:0.72rem;color:var(--eco-gray);margin-top:0.3rem;font-family:'JetBrains Mono',monospace;">CIN: U38210PN2023PTC226912 · MPCB Authorized</div>
+    <div style="font-size:0.72rem;color:var(--eco-gray);margin-top:0.3rem;font-family:'JetBrains Mono',monospace;">MPCB Authorized · HWM Rules 2016 Compliant</div>
   </div>
   <div class="footer-copy">© 2025 ECOO Alternate Fuels India Pvt. Ltd. · All Rights Reserved</div>
   <div class="footer-links">
@@ -919,7 +703,7 @@
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
 </button>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll progress bar
   const progress = document.getElementById('scroll-progress');
   const nav = document.getElementById('nav');
@@ -980,10 +764,4 @@
       if (t < 1) requestAnimationFrame(step);
     })(start);
   }
-  const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); statObserver.unobserve(e.target); } });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num[data-count]').forEach(el => statObserver.observe(el));
-</script>
-</body>
-</html>
+  const statObserver = new IntersectionObserver((entries)
