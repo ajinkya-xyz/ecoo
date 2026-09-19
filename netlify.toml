@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/ops"
+  to = "/portal.html"
+  status = 200
+
+[[redirects]]
+  from = "/ops/*"
+  to = "/portal.html"
+  status = 200
